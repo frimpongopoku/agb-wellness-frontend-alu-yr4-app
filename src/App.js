@@ -1,7 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { bindActionCreators } from "redux";
+import { testReduxAction } from "./redux/actions/actions";
+import { connect } from "react-redux";
+import { useEffect } from "react";
 
-function App() {
+function App({ testAction, testStore }) {
+  useEffect(() => {
+    testAction(
+      "Welcome to your new app, redux, redux-thunk, and redux-logger are already setup. Enjoy!"
+    );
+  }, []);
+
+  console.log("This is from the store", testStore);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -22,4 +34,13 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    testStore: state.testStore,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ testAction: testReduxAction }, dispatch);
+};
+export default connect(mapStateToProps, mapDispatchToProps)(App);
