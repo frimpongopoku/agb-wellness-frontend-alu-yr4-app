@@ -12,7 +12,7 @@ function App({ testAction, testStore }) {
     );
   }, []);
 
-  console.log("This is from the store", testStore);
+  console.log("This is from the store and I am loggin it out innit", testStore);
 
   return (
     <div className="App">
