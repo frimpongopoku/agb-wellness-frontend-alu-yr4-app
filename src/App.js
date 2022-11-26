@@ -1,36 +1,20 @@
 import logo from "./logo.svg";
-import "./App.css";
+
 import { bindActionCreators } from "redux";
 import { testReduxAction } from "./redux/actions/actions";
 import { connect } from "react-redux";
 import { useEffect } from "react";
+import PageSkeleton from "./components/PageSkeleton";
 
 function App({ testAction, testStore }) {
-  useEffect(() => {
-    testAction(
-      "Welcome to your new app, redux, redux-thunk, and redux-logger are already setup. Enjoy!"
-    );
-  }, []);
-
-  console.log("This is from the store and I am loggin it out innit", testStore);
-
   return (
-    <div className="App" >
-      <header className="App-header" style={{backgroundColor:"var(--app-yellow)"}}>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to and that.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <PageSkeleton>
+      <div className="company">
+        <h1 style={{ color: "white" }}>AGB</h1>
+        <h3>LIMITED CORPORATION</h3>
+        <p>Employee Health Portal</p>
+      </div>
+    </PageSkeleton>
   );
 }
 

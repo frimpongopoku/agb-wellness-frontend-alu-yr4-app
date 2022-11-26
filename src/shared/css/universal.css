@@ -8,11 +8,56 @@
 * {
   font-family: "Google Sans", sans-serif;
   box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
 }
 
 :root {
-  --app-yellow: #F2D980;
-  --app-black : #000000;
-  --app-green : #14BC4D;
-  --transparent : rgba(95, 95, 95, 0.52);
+  --app-yellow: #f2d980;
+  --app-black: #000000;
+  --app-green: #14bc4d;
+  --transparent: rgba(95, 95, 95, 0.52);
+}
+.blanket {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+  opacity: 0.8;
+}
+
+.company {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.company h1,
+h3,
+p {
+  color: white;
+}
+.company h1 {
+  font-size: 239px;
+}
+.company h3 {
+  font-size: 53px;
+}
+.company p { 
+  font-size: 26px;
+}
+.content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 5;
+}
+.page {
+  height: 100vh;
+  width: 100vw;
+  background: url(./../images/wg.jpeg);
+  background-size: contain;
 }
