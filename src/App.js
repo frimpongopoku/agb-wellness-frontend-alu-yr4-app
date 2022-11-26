@@ -15,11 +15,11 @@ function App({ testAction, testStore }) {
   console.log("This is from the store and I am loggin it out innit", testStore);
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="App" >
+      <header className="App-header" style={{backgroundColor:"var(--app-yellow)"}}>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Edit <code>src/App.js</code> and save to and that.
         </p>
         <a
           className="App-link"

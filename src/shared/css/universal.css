@@ -11,4 +11,8 @@
 }
 
 :root {
+  --app-yellow: #F2D980;
+  --app-black : #000000;
+  --app-green : #14BC4D;
+  --transparent : rgba(95, 95, 95, 0.52);
 }
