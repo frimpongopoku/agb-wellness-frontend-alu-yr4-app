@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../components/button/Button";
 import Checkbox from "../../components/checkbox/Checkbox";
 import TextField from "../../components/texfield/TextField";
 
 function Registration() {
+  const [isManager, setIsManager] = useState(false);
   return (
     <div>
       <TextField
@@ -32,13 +33,20 @@ function Registration() {
         placeholder="Confirm your password..."
       />
       <div>
-        <Checkbox label="Are you a manager?" labelStyle={{ fontSize: 17 }} />
+        <Checkbox
+          onChange={() => setIsManager(!isManager)}
+          label="Are you a manager?"
+          labelStyle={{ fontSize: 17 }}
+          checked={isManager}
+        />
       </div>
 
       <TextField
-        label="Staff Code"
+        label={`${isManager ? "Manager" : "Staff"} Code`}
         type="text"
-        placeholder="Enter your given staff code..."
+        placeholder={`Enter your given ${
+          isManager ? "manager" : "staff"
+        } code...`}
       />
 
       <br />

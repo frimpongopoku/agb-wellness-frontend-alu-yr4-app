@@ -10,7 +10,7 @@ function Checkbox({
 }) {
   return (
     <div
-      className="app-checkbox-wrapper"
+      className="app-checkbox-wrapper touchable-opacity"
       onClick={() => onChange && onChange()}
     >
       <div className="app-checkbox">
