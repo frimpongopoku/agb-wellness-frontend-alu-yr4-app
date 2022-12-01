@@ -14,7 +14,7 @@ function StaffCard() {
           lospongos@gmail.com
         </small>
       </div>
-      <Checkbox style={{ marginBottom: 0, position: "absolute", right: 10 }} />
+      <Checkbox style={{ marginBottom: 0, marginLeft: "auto" }} />
     </div>
   );
 }

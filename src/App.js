@@ -10,6 +10,7 @@ import Sidepane from "./components/sidepane/Sidepane";
 import Authentication from "./pages/auth/Authentication";
 import StaffCard from "./components/StaffCard";
 import CategoryCard from "./components/CategoryCard";
+import TaskCard from "./components/TaskCard";
 
 function App({ testAction, testStore }) {
   return (
@@ -20,8 +21,9 @@ function App({ testAction, testStore }) {
           <Authentication />
         </Sidepane> */}
         <div className="company">
-          <StaffCard />
-          <CategoryCard />
+          <TaskCard />
+          {/* <StaffCard /> */}
+          {/* <CategoryCard /> */}
           {/* <h1 style={{ color: "white" }}>AGB</h1>
           <h3>LIMITED CORPORATION</h3>
           <p>Employee Health Portal</p> */}

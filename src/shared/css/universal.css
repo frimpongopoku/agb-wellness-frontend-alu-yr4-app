@@ -157,3 +157,20 @@ p {
   height: 100%;
   /* border: solid 3px black; */
 }
+
+.task-done-btn {
+  margin-left: auto;
+  height: 100%;
+  width: 50px;
+  background: var(--app-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.task-done-btn small {
+  font-weight: bold;
+  color: white;
+}
