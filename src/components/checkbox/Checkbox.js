@@ -1,16 +1,10 @@
 import React from "react";
 import "./checkbox.css";
-function Checkbox({
-  label = "Checkbox label here",
-  checked,
-  onChange,
-  style,
-  className,
-  labelStyle,
-}) {
+function Checkbox({ label, checked, onChange, style, className, labelStyle }) {
   return (
     <div
-      className="app-checkbox-wrapper touchable-opacity"
+      style={style || {}}
+      className={`app-checkbox-wrapper touchable-opacity ${className || ""}`}
       onClick={() => onChange && onChange()}
     >
       <div className="app-checkbox">

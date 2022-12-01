@@ -14,9 +14,24 @@
 
 :root {
   --app-yellow: #f2d980;
+  --app-light-text: #FFF3CA;
   --app-black: #000000;
   --app-green: #14bc4d;
   --transparent: rgba(95, 95, 95, 0.52);
+}
+
+.staff-card {
+  padding: 10px 15px;
+  background-color: rgba(95, 95, 95, 0.42);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.staff-card img {
+  width: 55px;
+  height: 55px;
+  border-radius: 100%;
+  border: solid 3px black;
 }
 .blanket {
   position: fixed;

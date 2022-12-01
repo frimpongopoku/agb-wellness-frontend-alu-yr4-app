@@ -8,19 +8,21 @@ import PageSkeleton from "./components/PageSkeleton";
 import CornerTriangle from "./components/CornerTriangle";
 import Sidepane from "./components/sidepane/Sidepane";
 import Authentication from "./pages/auth/Authentication";
+import StaffCard from "./components/StaffCard";
 
 function App({ testAction, testStore }) {
   return (
     <PageSkeleton>
       {/* <CornerTriangle /> */}
       <>
-        <Sidepane show>
+        {/* <Sidepane show>
           <Authentication />
-        </Sidepane>
+        </Sidepane> */}
         <div className="company">
-          <h1 style={{ color: "white" }}>AGB</h1>
+          <StaffCard />
+          {/* <h1 style={{ color: "white" }}>AGB</h1>
           <h3>LIMITED CORPORATION</h3>
-          <p>Employee Health Portal</p>
+          <p>Employee Health Portal</p> */}
         </div>
       </>
     </PageSkeleton>
