@@ -4,7 +4,9 @@ function PageSkeleton({ children }) {
   return (
     <div className="page">
       <div className="blanket"> </div>
-      <div className="content ">{children}</div>
+      <div className="content ">
+        {children}
+      </div>
     </div>
   );
 }

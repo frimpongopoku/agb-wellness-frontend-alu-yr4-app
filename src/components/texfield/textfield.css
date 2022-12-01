@@ -1,0 +1,23 @@
+.textfield {
+  padding: 11px 16px;
+  width: 100%;
+  border: solid 2px black;
+  color: black;
+  font-size: 17px;
+}
+
+.textfield:focus {
+  outline: 0px;
+}
+
+/* .textfield :active {
+  outline: 0px;
+} */
+
+.textfield-label {
+  margin-bottom: 6px;
+}
+
+.textfield-label small {
+  font-weight: bold;
+}
