@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../../components/button/Button";
 import TextField from "../../components/texfield/TextField";
 
 function Registration() {
@@ -29,6 +30,10 @@ function Registration() {
         type="password"
         placeholder="Confirm your password..."
       />
+
+      <div>
+        <Button>Complete Registration</Button>
+      </div>
     </div>
   );
 }

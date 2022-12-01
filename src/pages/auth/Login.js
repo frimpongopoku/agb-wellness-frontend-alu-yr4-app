@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../../components/button/Button";
 import TextField from "../../components/texfield/TextField";
 
 function Login() {
@@ -14,6 +15,7 @@ function Login() {
         type="password"
         placeholder="Enter your password..."
       />
+      <Button>Sign In</Button>
     </div>
   );
 }

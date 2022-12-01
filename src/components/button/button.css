@@ -1,0 +1,22 @@
+.app-btn {
+  display: inline-flex;
+  flex-direction: row;
+  padding: 15px 25px;
+  background-color: var(--app-black);
+  color: white;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-weight: bold;
+  font-size: 19px;
+}
+.app-btn:active {
+  transform: scale(0.9);
+  transition: 0.2s ease-out;
+}
+
+.touchable-opacity:hover {
+  opacity: 0.8;
+  transition: 0.2s ease-out;
+}

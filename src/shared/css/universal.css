@@ -94,6 +94,11 @@ p {
   justify-content: center;
 }
 
+.auth-tab-selector h5:active {
+  transform: scale(0.9);
+  transition: 0.2s ease-out;
+}
+
 .auth-tab-selector h5 {
   font-weight: bold;
   padding: 8px 28px;
@@ -101,7 +106,6 @@ p {
   border: solid 4px transparent;
   border-left-width: 0px;
   border-right-width: 0px;
-
   cursor: pointer;
   margin: 0px 5px;
 }
