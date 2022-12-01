@@ -1,11 +1,9 @@
 import React from "react";
 
-function CornerTriangle() {
+function CornerTriangle({ children }) {
   return (
     <div className="yellow-triangle">
-      <div className="yellow-triangle-content">
-        <h1>Children Components Will Go here</h1>
-      </div>
+      <div className="yellow-triangle-content">{children}</div>
     </div>
   );
 }
