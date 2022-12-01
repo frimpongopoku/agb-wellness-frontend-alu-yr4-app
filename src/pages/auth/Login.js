@@ -15,6 +15,7 @@ function Login() {
         type="password"
         placeholder="Enter your password..."
       />
+      <br />
       <Button>Sign In</Button>
     </div>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "../../components/button/Button";
+import Checkbox from "../../components/checkbox/Checkbox";
 import TextField from "../../components/texfield/TextField";
 
 function Registration() {
@@ -30,7 +31,17 @@ function Registration() {
         type="password"
         placeholder="Confirm your password..."
       />
+      <div>
+        <Checkbox label="Are you a manager?" labelStyle={{ fontSize: 17 }} />
+      </div>
 
+      <TextField
+        label="Staff Code"
+        type="text"
+        placeholder="Enter your given staff code..."
+      />
+
+      <br />
       <div>
         <Button>Complete Registration</Button>
       </div>
