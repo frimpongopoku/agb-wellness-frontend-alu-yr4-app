@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "../../components/button/Button";
 import Checkbox from "../../components/checkbox/Checkbox";
+import Dropdown from "../../components/dropdown/Dropdown";
 import TextField from "../../components/texfield/TextField";
 
 function Registration() {
@@ -48,6 +49,12 @@ function Registration() {
           isManager ? "manager" : "staff"
         } code...`}
       />
+
+      {/* <Dropdown
+        label="Choose something now..."
+        data={[1, 2, 3, 4]}
+        onChange={(value) => console.log("here is the value", value)}
+      /> */}
 
       <br />
       <div>

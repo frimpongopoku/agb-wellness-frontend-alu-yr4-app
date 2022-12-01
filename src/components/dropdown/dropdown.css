@@ -1,0 +1,21 @@
+.drop-main {
+  width: 100%;
+
+  font-size: 16px;
+  font-weight: bold;
+  border: solid 0px black;
+  background: transparent;
+  cursor: pointer;
+}
+
+.drop-main:focus {
+  outline: 0px;
+}
+
+.drop-root {
+  padding: 10px 24px;
+  border: solid 2px var(--app-black);
+  cursor: pointer;
+  margin-bottom: 10px;
+  background: white;
+}
