@@ -1,17 +1,13 @@
 import React from "react";
 import Checkbox from "./checkbox/Checkbox";
 
-function StaffCard() {
+function CategoryCard() {
   return (
-    <div className="staff-card">
+    <div className="categories-card">
       <img src="https://i.pravatar.cc/300" />
       <div style={{ margin: "0px 15px", color: "white" }}>
         <small style={{ fontSize: 15 }}>
           <b>Whan Gi Chooms</b>
-        </small>
-        <br />
-        <small style={{ color: "var(--app-light-text)" }}>
-          lospongos@gmail.com
         </small>
       </div>
       <Checkbox style={{ marginBottom: 0, position: "absolute", right: 10 }} />
@@ -19,4 +15,4 @@ function StaffCard() {
   );
 }
 
-export default StaffCard;
+export default CategoryCard;

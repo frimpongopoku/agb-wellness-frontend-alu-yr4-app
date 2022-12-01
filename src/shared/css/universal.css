@@ -14,7 +14,7 @@
 
 :root {
   --app-yellow: #f2d980;
-  --app-light-text: #FFF3CA;
+  --app-light-text: #fff3ca;
   --app-black: #000000;
   --app-green: #14bc4d;
   --transparent: rgba(95, 95, 95, 0.52);
@@ -26,6 +26,10 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  position: relative;
+  margin-bottom: 10px;
+  min-width: 290px;
+  position: relative;
 }
 .staff-card img {
   width: 55px;
@@ -136,4 +140,20 @@ p {
 
 .auth-content-div {
   padding: 40px 0px;
+}
+
+.categories-card {
+  min-width: 290px;
+  background-color: rgba(95, 95, 95, 0.42);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.categories-card img {
+  width: 55px;
+  height: 100%;
+  /* border: solid 3px black; */
 }
