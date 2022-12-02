@@ -5,7 +5,7 @@ function UserInfo() {
     <div className="user-info">
       <img src="https://i.pravatar.cc/300" />
       <h3>Rosalinda</h3>
-      <p>@Manager</p>
+      <p>@Manager, @Staff</p>
     </div>
   );
 }
