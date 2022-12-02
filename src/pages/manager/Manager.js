@@ -2,6 +2,8 @@ import React from "react";
 import Button from "../../components/button/Button";
 import PageTitle from "../../components/PageTitle";
 import PageWrapper from "../../components/PageWrapper";
+import CategoryListings from "./CategoryListings";
+import StaffListings from "./StaffListings";
 
 function Manager() {
   return (
@@ -18,8 +20,8 @@ function Manager() {
           </div>
 
           <div className="manager-partition">
-            <div className="staff-area"></div>
-            <div className="categories-area"></div>
+            <StaffListings />
+            <CategoryListings />
           </div>
         </div>
       </>
