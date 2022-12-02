@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Button from "../../components/button/Button";
+import Loader from "../../components/loader/Loader";
 import PageTitle from "../../components/PageTitle";
 import PageWrapper from "../../components/PageWrapper";
 import Toast from "../../components/toast/Toast";
@@ -50,7 +51,7 @@ function Manager({ toggleSidePane }) {
             <CategoryListings />
           </div>
         </div>
-        <Toast good show />
+        <Loader loading>Page is loading...</Loader>
       </>
     </PageWrapper>
   );

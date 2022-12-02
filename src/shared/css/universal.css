@@ -37,7 +37,7 @@
   width: 55px;
   height: 55px;
   border-radius: 100%;
-  border: solid 3px black;
+  border: solid 3px var(--app-yellow);
 }
 .blanket {
   position: fixed;

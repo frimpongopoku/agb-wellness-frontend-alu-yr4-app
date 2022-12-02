@@ -1,0 +1,16 @@
+.app-loader {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.app-loader i {
+  font-size: 55px;
+  margin-bottom: 6px;
+  color: var(--app-yellow);
+}
