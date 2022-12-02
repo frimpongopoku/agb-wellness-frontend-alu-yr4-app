@@ -1,7 +1,7 @@
 .app-btn {
   display: inline-flex;
   flex-direction: row;
-  padding: 15px 25px;
+  padding: 13px 25px;
   background-color: var(--app-black);
   color: white;
   cursor: pointer;

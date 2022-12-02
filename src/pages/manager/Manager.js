@@ -1,11 +1,16 @@
 import React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import Button from "../../components/button/Button";
 import PageTitle from "../../components/PageTitle";
 import PageWrapper from "../../components/PageWrapper";
+import { reduxShowSidePane } from "../../redux/actions/actions";
+import AddCategory from "./AddCategory";
+import AddStaff from "./AddStaff";
 import CategoryListings from "./CategoryListings";
 import StaffListings from "./StaffListings";
 
-function Manager() {
+function Manager({ toggleSidePane }) {
   return (
     <PageWrapper cornerContent={<h3>H3 tag</h3>}>
       <>
@@ -15,8 +20,28 @@ function Manager() {
         />
         <div>
           <div style={{ display: "flex", flexDirection: "row", marginTop: 15 }}>
-            <Button className="add-staff-btn elevate-2">ADD STAFF </Button>
-            <Button className="add-cat-btn elevate-2">ADD CATEGORY </Button>
+            <Button
+              className="add-staff-btn elevate-2"
+              onClick={() =>
+                toggleSidePane({
+                  show: true,
+                  component: <AddStaff toggleSidePane={toggleSidePane} />,
+                })
+              }
+            >
+              ADD STAFF{" "}
+            </Button>
+            <Button
+              className="add-cat-btn elevate-2"
+              onClick={() =>
+                toggleSidePane({
+                  show: true,
+                  component: <AddCategory toggleSidePane={toggleSidePane} />,
+                })
+              }
+            >
+              ADD CATEGORY{" "}
+            </Button>
           </div>
 
           <div className="content-partition">
@@ -29,4 +54,17 @@ function Manager() {
   );
 }
 
-export default Manager;
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      toggleSidePane: reduxShowSidePane,
+    },
+    dispatch
+  );
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Manager);

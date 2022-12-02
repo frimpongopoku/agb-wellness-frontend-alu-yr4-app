@@ -5,6 +5,7 @@ import Button from "../../components/button/Button";
 import PageTitle from "../../components/PageTitle";
 import PageWrapper from "../../components/PageWrapper";
 import { reduxShowSidePane } from "../../redux/actions/actions";
+import CreateGoal from "./CreateGoal";
 import DoneListings from "./DoneListings";
 import GoalListings from "./GoalListings";
 
@@ -22,7 +23,7 @@ function Staff({ toggleSidePane }) {
               onClick={() =>
                 toggleSidePane({
                   show: true,
-                  component: <h1>Dont konw meerhn</h1>,
+                  component: <CreateGoal toggleSidePane={toggleSidePane} />,
                 })
               }
               className="add-staff-btn elevate-2"

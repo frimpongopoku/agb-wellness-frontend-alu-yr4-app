@@ -17,6 +17,7 @@
   --app-light-text: #fff3ca;
   --app-black: #000000;
   --app-green: #14bc4d;
+  --app-red: #a44141;
   --transparent: rgba(95, 95, 95, 0.52);
 }
 
@@ -256,3 +257,4 @@ p {
   opacity: 1;
   transition: 0.2s ease-out;
 }
+

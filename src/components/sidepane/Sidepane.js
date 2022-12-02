@@ -1,12 +1,12 @@
 import React from "react";
 import "./sidepane.css";
-function Sidepane({ children, show }) {
+function Sidepane({ component, show }) {
   if (!show) return <></>;
   return (
     <div className="side-root">
       <div className="side-blanket"></div>
-      <div className="side-content">
-        <div className="side-card">{children}</div>
+      <div className="side-content ">
+        <div className="side-card slide-from-left-anime">{component}</div>
       </div>
     </div>
   );
