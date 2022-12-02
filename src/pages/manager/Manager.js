@@ -19,7 +19,7 @@ function Manager() {
             <Button className="add-cat-btn elevate-2">ADD CATEGORY </Button>
           </div>
 
-          <div className="manager-partition">
+          <div className="content-partition">
             <StaffListings />
             <CategoryListings />
           </div>

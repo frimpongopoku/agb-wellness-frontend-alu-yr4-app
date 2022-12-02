@@ -1,11 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import Button from "../../components/button/Button";
 import PageTitle from "../../components/PageTitle";
 import PageWrapper from "../../components/PageWrapper";
+import { reduxShowSidePane } from "../../redux/actions/actions";
 import DoneListings from "./DoneListings";
 import GoalListings from "./GoalListings";
 
-function Staff() {
+function Staff({ toggleSidePane }) {
   return (
     <PageWrapper cornerContent={<h3>H3 tag</h3>}>
       <>
@@ -15,7 +18,17 @@ function Staff() {
         />
         <div>
           <div style={{ display: "flex", flexDirection: "row", marginTop: 15 }}>
-            <Button className="add-staff-btn elevate-2">NEW GOAL</Button>
+            <Button
+              onClick={() =>
+                toggleSidePane({
+                  show: true,
+                  component: <h1>Dont konw meerhn</h1>,
+                })
+              }
+              className="add-staff-btn elevate-2"
+            >
+              NEW GOAL
+            </Button>
           </div>
 
           <div className="content-partition">
@@ -28,4 +41,16 @@ function Staff() {
   );
 }
 
-export default Staff;
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      toggleSidePane: reduxShowSidePane,
+    },
+    dispatch
+  );
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Staff);

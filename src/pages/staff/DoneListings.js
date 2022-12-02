@@ -1,7 +1,6 @@
 import React from "react";
-import CategoryCard from "../../components/CategoryCard";
 import GoalCard from "../../components/GoalCard";
-import StaffCard from "../../components/StaffCard";
+
 
 function DoneListings() {
   return (
@@ -9,7 +8,9 @@ function DoneListings() {
       <h3>ACCOMPLISHED </h3>
       <div>
         {[1, 2, 3, 4, 6, 7].map((itm, index) => (
-          <GoalCard done />
+          <React.Fragment key={index.toString()}>
+            <GoalCard done />
+          </React.Fragment>
         ))}
       </div>
     </div>

@@ -9,7 +9,9 @@ function GoalListings() {
       <h3>YOUR GOALS THIS WEEK </h3>
       <div>
         {[1, 2, 3, 4, 6, 7].map((itm, index) => (
-          <GoalCard />
+          <React.Fragment key={index.toString()}>
+            <GoalCard />
+          </React.Fragment>
         ))}
       </div>
     </div>
