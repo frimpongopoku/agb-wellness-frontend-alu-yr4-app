@@ -10,7 +10,7 @@ import Sidepane from "./components/sidepane/Sidepane";
 import Authentication from "./pages/auth/Authentication";
 import StaffCard from "./components/StaffCard";
 import CategoryCard from "./components/CategoryCard";
-import TaskCard from "./components/TaskCard";
+import TaskCard from "./components/GoalCard";
 
 function App({ testAction, testStore }) {
   return (

@@ -1,11 +1,14 @@
 import React from "react";
 import Checkbox from "./checkbox/Checkbox";
 
-function TaskCard() {
+function GoalCard({ done }) {
   return (
-    <div style={{ display: "flex", flexDirection: "row", marginBottom: 10 }}>
-      <div className="staff-card" style={{ margin: 0 }}>
-        <Checkbox style={{ marginBottom: 0 }} />
+    <div
+      className={done ? "done" : ""}
+      style={{ display: "flex", flexDirection: "row", marginBottom: 10 }}
+    >
+      <div className="staff-card" style={{ margin: 0, width: "100%" }}>
+        {!done && <Checkbox style={{ marginBottom: 0 }} />}
 
         <div style={{ margin: "0px 15px", color: "white" }}>
           <small style={{ fontSize: 15 }}>
@@ -24,15 +27,16 @@ function TaskCard() {
             cursor: "pointer",
           }}
         >
-          Edit
+          {done ? "Undo" : "Edit"}
         </small>
       </div>
-      <div className="task-done-btn touchable-opacity">
-        {/* Replace this text with a check mark sign to signal "done" when in "accomplished" mode */}
-        <small>Done</small>
-      </div>
+      {!done && (
+        <div className="task-done-btn touchable-opacity">
+          <small>Done</small>
+        </div>
+      )}
     </div>
   );
 }
 
-export default TaskCard;
+export default GoalCard;
