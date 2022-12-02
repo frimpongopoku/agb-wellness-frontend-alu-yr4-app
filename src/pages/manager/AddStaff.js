@@ -2,6 +2,7 @@ import React from "react";
 import Button from "../../components/button/Button";
 import TextField from "../../components/texfield/TextField";
 
+
 function AddStaff({ toggleSidePane }) {
   return (
     <div style={{ padding: "50px 15px" }}>
@@ -11,9 +12,7 @@ function AddStaff({ toggleSidePane }) {
       <TextField label="Email" placeholder="Email  of staff member..." />
 
       <br />
-      <Button style={{ background: "var(--app-yellow)", color: "black" }}>
-        ADD STAFF
-      </Button>
+      <Button>ADD STAFF</Button>
       <Button
         onClick={() =>
           toggleSidePane && toggleSidePane({ show: false, component: null })

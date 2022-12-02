@@ -14,9 +14,7 @@ function AddCategory({ toggleSidePane }) {
       />
 
       <br />
-      <Button style={{ background: "var(--app-yellow)", color: "black" }}>
-        ADD CATEGORY
-      </Button>
+      <Button>ADD CATEGORY</Button>
       <Button
         onClick={() =>
           toggleSidePane && toggleSidePane({ show: false, component: null })

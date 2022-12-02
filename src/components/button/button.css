@@ -10,6 +10,7 @@
   width: 100%;
   font-weight: bold;
   font-size: 19px;
+  box-shadow: var(--elevate-1);
 }
 .app-btn:active {
   transform: scale(0.9);

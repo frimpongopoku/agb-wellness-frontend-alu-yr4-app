@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import Button from "../../components/button/Button";
 import PageTitle from "../../components/PageTitle";
 import PageWrapper from "../../components/PageWrapper";
+import Toast from "../../components/toast/Toast";
 import { reduxShowSidePane } from "../../redux/actions/actions";
 import AddCategory from "./AddCategory";
 import AddStaff from "./AddStaff";
@@ -49,6 +50,7 @@ function Manager({ toggleSidePane }) {
             <CategoryListings />
           </div>
         </div>
+        <Toast good show />
       </>
     </PageWrapper>
   );
