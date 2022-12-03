@@ -6,11 +6,17 @@ function Button({ children, loading, style, className, onClick, accent }) {
     : style || {};
   return (
     <div
-      onClick={() => onClick && onClick()}
+      disabled={loading}
+      onClick={() => {
+        if (loading) return;
+        onClick && onClick();
+      }}
       style={style}
       className={` app-btn touchable-opacity ${className || ""}`}
     >
-      {loading && <i className="fa fa-spinner fa-spin" />}
+      {loading && (
+        <i className="fa fa-spinner fa-spin" style={{ marginRight: 6 }} />
+      )}
       <span>{children || "New Button Here"}</span>
     </div>
   );

@@ -2,6 +2,7 @@ import {
   DO_NOTHING,
   SHOW_SIDE_PANE,
   TOGGLE_SIDE_PANE,
+  TOGGLE_TOAST,
 } from "../ReduxConstants";
 
 export const testReduxAction = (someValue) => {
@@ -12,5 +13,5 @@ export const reduxShowSidePane = (payload) => {
   return { type: TOGGLE_SIDE_PANE, payload };
 };
 export const reduxShowToast = (payload) => {
-  return { type: TOGGLE_SIDE_PANE, payload };
+  return { type: TOGGLE_TOAST, payload };
 };

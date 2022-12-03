@@ -6,6 +6,7 @@ function TextField({
   type,
   placeholder = "Enter content here...",
   className,
+  onChange,
 }) {
   return (
     <div style={{ marginBottom: 10 }}>
@@ -17,6 +18,7 @@ function TextField({
       )}
       <div>
         <input
+          onChange={(e) => onChange && onChange(e.target.value)}
           type={type || "text"}
           className={`textfield ${className}`}
           placeholder={placeholder}
