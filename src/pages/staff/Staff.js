@@ -11,6 +11,7 @@ import Button from "../../components/button/Button";
 import PageTitle from "../../components/PageTitle";
 import PageWrapper from "../../components/PageWrapper";
 import { reduxShowSidePane } from "../../redux/actions/actions";
+import Delete from "../auth/delete/Delete";
 import CreateOrEditGoal from "./CreateOrEditGoal";
 import DoneListings from "./DoneListings";
 import GoalListings from "./GoalListings";
@@ -31,6 +32,18 @@ function Staff({ toggleSidePane, create, edit, view }) {
     if (create) return createGoal();
     if (edit) return createGoal(id);
   }, []);
+
+  const deleteGoals = () => {
+    toggleSidePane({
+      show: true,
+      component: (
+        <Delete
+          count={3}
+          close={() => toggleSidePane({ show: false, component: null })}
+        />
+      ),
+    });
+  };
 
   return (
     <PageWrapper cornerContent={<h3>H3 tag</h3>}>
@@ -54,7 +67,10 @@ function Staff({ toggleSidePane, create, edit, view }) {
               <ViewGoal id={params && params.id} />
             ) : (
               <>
-                <GoalListings edit={(id) => createGoal(id)} />
+                <GoalListings
+                  deleteGoals={deleteGoals}
+                  edit={(id) => createGoal(id)}
+                />
                 <DoneListings />
               </>
             )}

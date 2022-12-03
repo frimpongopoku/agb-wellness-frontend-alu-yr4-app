@@ -7,6 +7,7 @@ import Loader from "../../components/loader/Loader";
 import PageTitle from "../../components/PageTitle";
 import PageWrapper from "../../components/PageWrapper";
 import { reduxShowSidePane } from "../../redux/actions/actions";
+import Delete from "../auth/delete/Delete";
 import AddOrEditCategory from "./AddOrEditCategory";
 import AddStaff from "./AddStaff";
 import CategoryListings from "./CategoryListings";
@@ -33,6 +34,18 @@ function Manager({ toggleSidePane, staff, category, edit }) {
     if (edit) return createCategory(params && params.id);
   }, []);
 
+  const deleteStaff = () => {
+    toggleSidePane({
+      show: true,
+      component: (
+        <Delete
+          count={3}
+          close={() => toggleSidePane({ show: false, component: null })}
+        />
+      ),
+    });
+  };
+
   return (
     <PageWrapper cornerContent={<h3>H3 tag</h3>}>
       <>
@@ -57,8 +70,11 @@ function Manager({ toggleSidePane, staff, category, edit }) {
           </div>
 
           <div className="content-partition">
-            <StaffListings />
-            <CategoryListings edit={(id) => createCategory(id)} />
+            <StaffListings deleteStaff={deleteStaff} />
+            <CategoryListings
+              edit={(id) => createCategory(id)}
+              deleteStaff={deleteStaff}
+            />
           </div>
         </div>
         <Loader loading>Page is loading...</Loader>
