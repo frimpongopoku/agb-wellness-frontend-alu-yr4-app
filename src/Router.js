@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { bindActionCreators } from "redux";
@@ -8,11 +9,32 @@ import Sidepane from "./components/sidepane/Sidepane";
 import Toast from "./components/toast/Toast";
 import Manager from "./pages/manager/Manager";
 import Staff from "./pages/staff/Staff";
-import { reduxShowSidePane, reduxShowToast } from "./redux/actions/actions";
+import {
+  reduxSetAuthUser,
+  reduxShowSidePane,
+  reduxShowToast,
+} from "./redux/actions/actions";
+import { InternetExplorer } from "./shared/api/InternetExplorer";
+import { API_WHO_AM_I } from "./shared/api/urls";
 
 import "./shared/css/universal.css";
 
-function Router({ sidepane, toastOptions, toggleToast, toggleSidePane }) {
+function Router({
+  sidepane,
+  toastOptions,
+  toggleToast,
+  toggleSidePane,
+  putUserInRedux,
+}) {
+  const checkIfUserIsAuthenticated = () => {
+    InternetExplorer.post({ url: API_WHO_AM_I }).then((response) => {
+      if (!response.success)
+        return console.log("ERROR - WHOAMI: ", response.error);
+    });
+  };
+  useEffect(() => {
+    checkIfUserIsAuthenticated();
+  }, []);
   return (
     <>
       {sidepane && sidepane.show && (
@@ -65,6 +87,7 @@ const mapDispatchToProps = (dispatch) => {
     {
       toggleToast: reduxShowToast,
       toggleSidePane: reduxShowSidePane,
+      putUserInRedux: reduxSetAuthUser,
     },
     dispatch
   );

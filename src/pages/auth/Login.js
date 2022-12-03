@@ -5,7 +5,7 @@ import { InternetExplorer } from "../../shared/api/InternetExplorer";
 import { API_LOGIN } from "../../shared/api/urls";
 import { isValidEmail } from "../../shared/utils";
 
-function Login({ showNotification }) {
+function Login({ showNotification, putUserInRedux }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -22,12 +22,12 @@ function Login({ showNotification }) {
     InternetExplorer.post({
       url: API_LOGIN,
       body: { email, password },
-      credentials: "include",
     })
       .then((response) => {
         setLoading(false);
         console.log("I think this is the response innit", response);
         if (!response.success) return setError(response.error);
+        putUserInRedux(response.data);
       })
       .catch((e) => {
         console.log("Error:", e.toString());

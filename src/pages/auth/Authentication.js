@@ -2,20 +2,30 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import TextField from "../../components/texfield/TextField";
-import { reduxShowToast } from "../../redux/actions/actions";
+import { reduxSetAuthUser, reduxShowToast } from "../../redux/actions/actions";
 import Login from "./Login";
 import Registration from "./Registration";
 
-function Authentication({ tab = "login", showNotification }) {
+function Authentication({ tab = "login", showNotification, putUserInRedux }) {
   const [currentTab, setCurrentTab] = useState(tab);
   const TABS = {
     login: {
       key: "login",
-      component: <Login showNotification={showNotification} />,
+      component: (
+        <Login
+          putUserInRedux={putUserInRedux}
+          showNotification={showNotification}
+        />
+      ),
     },
     registration: {
       key: "registration",
-      component: <Registration showNotification={showNotification} />,
+      component: (
+        <Registration
+          putUserInRedux={putUserInRedux}
+          showNotification={showNotification}
+        />
+      ),
     },
   };
 
@@ -49,6 +59,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       showNotification: reduxShowToast,
+      putUserInRedux: reduxSetAuthUser,
     },
     dispatch
   );
