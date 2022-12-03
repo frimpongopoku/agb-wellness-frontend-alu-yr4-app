@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { bindActionCreators } from "redux";
+import App from "./App";
 import Landing from "./App";
 import Sidepane from "./components/sidepane/Sidepane";
 import Toast from "./components/toast/Toast";
@@ -30,6 +31,8 @@ function Router({ sidepane, toastOptions, toggleToast, toggleSidePane }) {
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Landing />} />
+          <Route exact path="/login" element={<App login />} />
+          <Route exact path="/register" element={<App register />} />
           <Route exact path="/staff" element={<Staff />} />
           <Route exact path="/staff/create/goal" element={<Landing />} />
           <Route exact path="/staff/edit/goal/:id" element={<Landing />} />

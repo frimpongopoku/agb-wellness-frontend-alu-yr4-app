@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 import PageSkeleton from "./components/PageSkeleton";
 import Button from "./components/button/Button";
 import Authentication from "./pages/auth/Authentication";
+import { useEffect } from "react";
 
-function App({ toggleSidePane }) {
+function App({ toggleSidePane, login, register }) {
   const showLoginPage = () => {
     toggleSidePane({
       show: true,
@@ -23,6 +24,12 @@ function App({ toggleSidePane }) {
       blanketStyle: { opacity: 0 },
     });
   };
+
+  useEffect(() => {
+    if (login) return showLoginPage();
+    if (register) return showRegistrationPage();
+  }, []);
+
   return (
     <PageSkeleton>
       <>
