@@ -7,6 +7,7 @@ function TextField({
   placeholder = "Enter content here...",
   className,
   onChange,
+  generic,
 }) {
   return (
     <div style={{ marginBottom: 10 }}>
@@ -22,6 +23,7 @@ function TextField({
           type={type || "text"}
           className={`textfield ${className}`}
           placeholder={placeholder}
+          {...(generic || {})}
         />
       </div>
     </div>
