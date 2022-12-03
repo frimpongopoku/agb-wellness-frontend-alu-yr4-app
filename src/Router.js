@@ -7,13 +7,19 @@ import Sidepane from "./components/sidepane/Sidepane";
 import Toast from "./components/toast/Toast";
 import Manager from "./pages/manager/Manager";
 import Staff from "./pages/staff/Staff";
-import { reduxShowToast } from "./redux/actions/actions";
+import { reduxShowSidePane, reduxShowToast } from "./redux/actions/actions";
+
 import "./shared/css/universal.css";
 
-function Router({ sidepane, toastOptions, toggleToast }) {
+function Router({ sidepane, toastOptions, toggleToast, toggleSidePane }) {
   return (
     <>
-      {sidepane && sidepane.show && <Sidepane {...(sidepane || {})} />}
+      {sidepane && sidepane.show && (
+        <Sidepane
+          {...(sidepane || {})}
+          close={() => toggleSidePane({ show: false, component: null })}
+        />
+      )}
       {toastOptions && toastOptions.show && (
         <Toast
           {...(toastOptions || {})}
@@ -49,6 +55,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       toggleToast: reduxShowToast,
+      toggleSidePane: reduxShowSidePane,
     },
     dispatch
   );
