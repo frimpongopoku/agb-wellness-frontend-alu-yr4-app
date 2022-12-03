@@ -10,21 +10,27 @@ import { bindActionCreators } from "redux";
 import Button from "../../components/button/Button";
 import PageTitle from "../../components/PageTitle";
 import PageWrapper from "../../components/PageWrapper";
-import { reduxShowSidePane } from "../../redux/actions/actions";
+import { reduxShowSidePane, reduxShowToast } from "../../redux/actions/actions";
 import Delete from "../auth/delete/Delete";
 import CreateOrEditGoal from "./CreateOrEditGoal";
 import DoneListings from "./DoneListings";
 import GoalListings from "./GoalListings";
 import ViewGoal from "./ViewGoal";
 
-function Staff({ toggleSidePane, create, edit, view }) {
+function Staff({ toggleSidePane, create, edit, view, showNotification }) {
   const params = useParams();
   const id = params && params.id;
 
   const createGoal = (id) => {
     toggleSidePane({
       show: true,
-      component: <CreateOrEditGoal toggleSidePane={toggleSidePane} id={id} />,
+      component: (
+        <CreateOrEditGoal
+          showNotification={showNotification}
+          toggleSidePane={toggleSidePane}
+          id={id}
+        />
+      ),
     });
   };
 
@@ -89,6 +95,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       toggleSidePane: reduxShowSidePane,
+      showNotification: reduxShowToast,
     },
     dispatch
   );
