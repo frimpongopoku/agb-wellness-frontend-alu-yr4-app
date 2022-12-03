@@ -11,3 +11,6 @@ export const testReduxAction = (someValue) => {
 export const reduxShowSidePane = (payload) => {
   return { type: TOGGLE_SIDE_PANE, payload };
 };
+export const reduxShowToast = (payload) => {
+  return { type: TOGGLE_SIDE_PANE, payload };
+};

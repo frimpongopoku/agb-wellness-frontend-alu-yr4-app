@@ -4,14 +4,23 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import Landing from "./App";
 import Sidepane from "./components/sidepane/Sidepane";
+import Toast from "./components/toast/Toast";
 import Manager from "./pages/manager/Manager";
 import Staff from "./pages/staff/Staff";
+import { reduxShowToast } from "./redux/actions/actions";
 import "./shared/css/universal.css";
 
-function Router({ sidepane }) {
+function Router({ sidepane, toastOptions, toggleToast }) {
   return (
     <>
       {sidepane && sidepane.show && <Sidepane {...(sidepane || {})} />}
+      {toastOptions && toastOptions.show && (
+        <Toast
+          {...(toastOptions || {})}
+          style={{ position: "absolute", bottom: 0, zIndex: "67" }}
+          close={() => toggleToast({ show: false })}
+        />
+      )}
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Landing />} />
@@ -33,10 +42,15 @@ function Router({ sidepane }) {
 }
 
 const mapStateToProps = (state) => {
-  return { sidepane: state.sidepane };
+  return { sidepane: state.sidepane, toastOptions: state.toastOptions };
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators({}, dispatch);
-// };
-export default connect(mapStateToProps)(Router);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      toggleToast: reduxShowToast,
+    },
+    dispatch
+  );
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Router);
