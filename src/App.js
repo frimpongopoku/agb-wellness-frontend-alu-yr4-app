@@ -11,6 +11,16 @@ function App({ toggleSidePane }) {
       show: true,
       component: <Authentication tab="login" />,
       closeWithBackground: true,
+      blanketStyle: { opacity: 0 },
+    });
+  };
+
+  const showRegistrationPage = () => {
+    toggleSidePane({
+      show: true,
+      component: <Authentication tab="registration" />,
+      closeWithBackground: true,
+      blanketStyle: { opacity: 0 },
     });
   };
   return (
@@ -28,7 +38,9 @@ function App({ toggleSidePane }) {
             >
               LOGIN
             </Button>
-            <Button accent>REGISTER</Button>
+            <Button onClick={() => showRegistrationPage()} accent>
+              REGISTER
+            </Button>
           </div>
         </div>
       </>

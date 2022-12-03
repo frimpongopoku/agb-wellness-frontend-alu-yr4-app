@@ -3,8 +3,8 @@ import TextField from "../../components/texfield/TextField";
 import Login from "./Login";
 import Registration from "./Registration";
 
-function Authentication() {
-  const [currentTab, setCurrentTab] = useState("registration");
+function Authentication({ tab = "login" }) {
+  const [currentTab, setCurrentTab] = useState(tab);
   const TABS = {
     login: { key: "login", component: <Login /> },
     registration: { key: "registration", component: <Registration /> },

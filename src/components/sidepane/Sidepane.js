@@ -1,10 +1,16 @@
 import React from "react";
 import "./sidepane.css";
-function Sidepane({ component, show, close, closeWithBackground }) {
+function Sidepane({
+  component,
+  show,
+  close,
+  closeWithBackground,
+  blanketStyle,
+}) {
   if (!show) return <></>;
   return (
     <div className="side-root">
-      <div className="side-blanket"></div>
+      <div className="side-blanket" style={blanketStyle || {}}></div>
       <div className="side-content ">
         <div
           onClick={() => {
