@@ -6,25 +6,36 @@ import Button from "../../components/button/Button";
 import Loader from "../../components/loader/Loader";
 import PageTitle from "../../components/PageTitle";
 import PageWrapper from "../../components/PageWrapper";
-import { reduxShowSidePane } from "../../redux/actions/actions";
+import { reduxShowSidePane, reduxShowToast } from "../../redux/actions/actions";
 import Delete from "../auth/delete/Delete";
 import AddOrEditCategory from "./AddOrEditCategory";
 import AddStaff from "./AddStaff";
 import CategoryListings from "./CategoryListings";
 import StaffListings from "./StaffListings";
 
-function Manager({ toggleSidePane, staff, category, edit }) {
+function Manager({ toggleSidePane, staff, category, edit, showNotification }) {
   const params = useParams();
   const addStaff = () => {
     toggleSidePane({
       show: true,
-      component: <AddStaff toggleSidePane={toggleSidePane} />,
+      component: (
+        <AddStaff
+          showNotification={showNotification}
+          toggleSidePane={toggleSidePane}
+        />
+      ),
     });
   };
   const createCategory = (id = null) => {
     toggleSidePane({
       show: true,
-      component: <AddOrEditCategory toggleSidePane={toggleSidePane} id={id} />,
+      component: (
+        <AddOrEditCategory
+          showNotification={showNotification}
+          toggleSidePane={toggleSidePane}
+          id={id}
+        />
+      ),
     });
   };
 
@@ -91,6 +102,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       toggleSidePane: reduxShowSidePane,
+      showNotification: reduxShowToast,
     },
     dispatch
   );

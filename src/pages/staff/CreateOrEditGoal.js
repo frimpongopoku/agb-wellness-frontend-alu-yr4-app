@@ -17,6 +17,7 @@ function CreateOrEditGoal({ toggleSidePane, id, showNotification }) {
 
   const sendToBackend = () => {
     const { title, dueBy, description, category } = form;
+    showNotification({});
 
     if (!title || !description || !category)
       return setError(
