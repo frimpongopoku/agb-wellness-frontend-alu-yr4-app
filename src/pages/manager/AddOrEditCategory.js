@@ -43,7 +43,7 @@ function AddOrEditCategory({ toggleSidePane, id, showNotification }) {
       />
 
       <br />
-      <Button>ADD CATEGORY</Button>
+      <Button onClick={() => sendToBackend()}>ADD CATEGORY</Button>
       <Button
         onClick={() =>
           toggleSidePane && toggleSidePane({ show: false, component: null })
