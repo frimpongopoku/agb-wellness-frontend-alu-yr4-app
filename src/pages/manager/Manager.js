@@ -1,18 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Button from "../../components/button/Button";
 import Loader from "../../components/loader/Loader";
 import PageTitle from "../../components/PageTitle";
 import PageWrapper from "../../components/PageWrapper";
-import Toast from "../../components/toast/Toast";
 import { reduxShowSidePane } from "../../redux/actions/actions";
 import AddCategory from "./AddCategory";
 import AddStaff from "./AddStaff";
 import CategoryListings from "./CategoryListings";
 import StaffListings from "./StaffListings";
 
-function Manager({ toggleSidePane }) {
+function Manager({ toggleSidePane, staff, category }) {
+  const addStaff = () => {
+    toggleSidePane({
+      show: true,
+      component: <AddStaff toggleSidePane={toggleSidePane} />,
+    });
+  };
+  const createCategory = () => {
+    toggleSidePane({
+      show: true,
+      component: <AddCategory toggleSidePane={toggleSidePane} />,
+    });
+  };
+
+  useEffect(() => {
+    if (staff) return addStaff();
+    if (category) return createCategory();
+  }, []);
+
   return (
     <PageWrapper cornerContent={<h3>H3 tag</h3>}>
       <>
@@ -24,23 +41,13 @@ function Manager({ toggleSidePane }) {
           <div style={{ display: "flex", flexDirection: "row", marginTop: 15 }}>
             <Button
               className="add-staff-btn elevate-2"
-              onClick={() =>
-                toggleSidePane({
-                  show: true,
-                  component: <AddStaff toggleSidePane={toggleSidePane} />,
-                })
-              }
+              onClick={() => addStaff()}
             >
               ADD STAFF{" "}
             </Button>
             <Button
               className="add-cat-btn elevate-2"
-              onClick={() =>
-                toggleSidePane({
-                  show: true,
-                  component: <AddCategory toggleSidePane={toggleSidePane} />,
-                })
-              }
+              onClick={() => createCategory()}
             >
               ADD CATEGORY{" "}
             </Button>

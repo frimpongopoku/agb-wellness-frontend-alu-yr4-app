@@ -1,7 +1,8 @@
 import React from "react";
 import Checkbox from "./checkbox/Checkbox";
 
-function GoalCard({ done }) {
+function GoalCard({ done, onClick }) {
+  const classes = onClick ? "underline touchable-opacity" : "";
   return (
     <div
       className={done ? "done" : ""}
@@ -10,7 +11,11 @@ function GoalCard({ done }) {
       <div className="staff-card" style={{ margin: 0, width: "100%" }}>
         {!done && <Checkbox style={{ marginBottom: 0 }} />}
 
-        <div style={{ margin: "0px 15px", color: "white" }}>
+        <div
+          className={classes}
+          style={{ margin: "0px 15px", color: "white" }}
+          onClick={() => onClick && onClick()}
+        >
           <small style={{ fontSize: 15 }}>
             <b>No Red Meat</b>
           </small>

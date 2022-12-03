@@ -34,15 +34,21 @@ function Router({ sidepane, toastOptions, toggleToast, toggleSidePane }) {
           <Route exact path="/login" element={<App login />} />
           <Route exact path="/register" element={<App register />} />
           <Route exact path="/staff" element={<Staff />} />
-          <Route exact path="/staff/create/goal" element={<Landing />} />
-          <Route exact path="/staff/edit/goal/:id" element={<Landing />} />
+          <Route exact path="/staff/create/goal" element={<Staff create />} />
+          <Route exact path="/staff/edit/goal/:id" element={<Staff edit />} />
+          <Route exact path="/staff/view/goal/:id" element={<Staff view />} />
+          <Route exact path="/staff/goals/" element={<Staff />} />
           <Route exact path="/manager" element={<Manager />} />
-          <Route exact path="/manager/add/staff" element={<Landing />} />
-          <Route exact path="/manager/add/category" element={<Landing />} />
+          <Route exact path="/manager/add/staff" element={<Manager staff />} />
+          <Route
+            exact
+            path="/manager/add/category"
+            element={<Manager category />}
+          />
           <Route
             exact
             path="/manager/edit/category/:id"
-            element={<Landing />}
+            element={<Manager editCategory />}
           />
         </Routes>
       </BrowserRouter>
