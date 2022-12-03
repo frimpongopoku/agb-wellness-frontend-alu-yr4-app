@@ -1,7 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Checkbox from "./checkbox/Checkbox";
 
-function GoalCard({ done, onClick }) {
+function GoalCard({ done, onClick, edit }) {
   const classes = onClick ? "underline touchable-opacity" : "";
   return (
     <div
@@ -23,6 +24,10 @@ function GoalCard({ done, onClick }) {
           <small style={{ color: "var(--app-light-text)" }}>HEALTH</small>
         </div>
         <small
+          onClick={() => {
+            if (done) return; // Undo
+            edit && edit();
+          }}
           className="touchable-opacity"
           style={{
             marginLeft: "auto",

@@ -2,10 +2,13 @@ import React from "react";
 import Button from "../../components/button/Button";
 import TextField from "../../components/texfield/TextField";
 
-function AddCategory({ toggleSidePane }) {
+function AddOrEditCategory({ toggleSidePane, id }) {
+  const inEditMode = id;
   return (
     <div style={{ padding: "50px 15px" }}>
-      <h1 style={{ color: "black" }}>ADD NEW CATEGORY</h1>
+      <h1 style={{ color: "black" }}>
+        {inEditMode ? "EDIT CATEGORY" : "ADD NEW CATEGORY"}
+      </h1>
       <br />
       <TextField label="Name" placeholder="Name  of new category..." />
       <TextField
@@ -27,4 +30,4 @@ function AddCategory({ toggleSidePane }) {
   );
 }
 
-export default AddCategory;
+export default AddOrEditCategory;

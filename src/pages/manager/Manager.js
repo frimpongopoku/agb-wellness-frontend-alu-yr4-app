@@ -1,33 +1,36 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import Button from "../../components/button/Button";
 import Loader from "../../components/loader/Loader";
 import PageTitle from "../../components/PageTitle";
 import PageWrapper from "../../components/PageWrapper";
 import { reduxShowSidePane } from "../../redux/actions/actions";
-import AddCategory from "./AddCategory";
+import AddOrEditCategory from "./AddOrEditCategory";
 import AddStaff from "./AddStaff";
 import CategoryListings from "./CategoryListings";
 import StaffListings from "./StaffListings";
 
-function Manager({ toggleSidePane, staff, category }) {
+function Manager({ toggleSidePane, staff, category, edit }) {
+  const params = useParams();
   const addStaff = () => {
     toggleSidePane({
       show: true,
       component: <AddStaff toggleSidePane={toggleSidePane} />,
     });
   };
-  const createCategory = () => {
+  const createCategory = (id = null) => {
     toggleSidePane({
       show: true,
-      component: <AddCategory toggleSidePane={toggleSidePane} />,
+      component: <AddOrEditCategory toggleSidePane={toggleSidePane} id={id} />,
     });
   };
 
   useEffect(() => {
     if (staff) return addStaff();
     if (category) return createCategory();
+    if (edit) return createCategory(params && params.id);
   }, []);
 
   return (
@@ -55,7 +58,7 @@ function Manager({ toggleSidePane, staff, category }) {
 
           <div className="content-partition">
             <StaffListings />
-            <CategoryListings />
+            <CategoryListings edit={(id) => createCategory(id)} />
           </div>
         </div>
         <Loader loading>Page is loading...</Loader>

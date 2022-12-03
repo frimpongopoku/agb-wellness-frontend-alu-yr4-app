@@ -11,23 +11,25 @@ import Button from "../../components/button/Button";
 import PageTitle from "../../components/PageTitle";
 import PageWrapper from "../../components/PageWrapper";
 import { reduxShowSidePane } from "../../redux/actions/actions";
-import CreateGoal from "./CreateGoal";
+import CreateOrEditGoal from "./CreateOrEditGoal";
 import DoneListings from "./DoneListings";
 import GoalListings from "./GoalListings";
 import ViewGoal from "./ViewGoal";
 
 function Staff({ toggleSidePane, create, edit, view }) {
   const params = useParams();
+  const id = params && params.id;
 
-  const createGoal = () => {
+  const createGoal = (id) => {
     toggleSidePane({
       show: true,
-      component: <CreateGoal toggleSidePane={toggleSidePane} />,
+      component: <CreateOrEditGoal toggleSidePane={toggleSidePane} id={id} />,
     });
   };
 
   useEffect(() => {
     if (create) return createGoal();
+    if (edit) return createGoal(id);
   }, []);
 
   return (
@@ -52,7 +54,7 @@ function Staff({ toggleSidePane, create, edit, view }) {
               <ViewGoal id={params && params.id} />
             ) : (
               <>
-                <GoalListings />
+                <GoalListings edit={(id) => createGoal(id)} />
                 <DoneListings />
               </>
             )}

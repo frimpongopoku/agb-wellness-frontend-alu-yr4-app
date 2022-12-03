@@ -14,7 +14,6 @@ function Sidepane({
       <div className="side-content ">
         <div
           onClick={() => {
-            console.log("I dont konw what youa reon");
             if (!closeWithBackground) return;
             close && close();
           }}

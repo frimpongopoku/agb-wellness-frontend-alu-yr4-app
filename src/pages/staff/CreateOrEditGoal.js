@@ -3,10 +3,13 @@ import Button from "../../components/button/Button";
 import Dropdown from "../../components/dropdown/Dropdown";
 import TextField from "../../components/texfield/TextField";
 
-function CreateGoal({ toggleSidePane }) {
+function CreateOrEditGoal({ toggleSidePane, id }) {
+  const inEditMode = id;
   return (
     <div style={{ padding: "50px 15px" }}>
-      <h1 style={{ color: "black" }}>NEW GOAL</h1>
+      <h1 style={{ color: "black" }}>
+        {inEditMode ? "EDIT GOAL" : "NEW GOAL"}
+      </h1>
       <br />
       <TextField label="Title" placeholder="Title of goal..." />
       <TextField
@@ -31,4 +34,4 @@ function CreateGoal({ toggleSidePane }) {
   );
 }
 
-export default CreateGoal;
+export default CreateOrEditGoal;

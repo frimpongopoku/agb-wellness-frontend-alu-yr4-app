@@ -4,7 +4,7 @@ import CategoryCard from "../../components/CategoryCard";
 import GoalCard from "../../components/GoalCard";
 import StaffCard from "../../components/StaffCard";
 
-function GoalListings() {
+function GoalListings({ edit }) {
   const navigateTo = useNavigate();
   return (
     <div className="partition">
@@ -12,7 +12,10 @@ function GoalListings() {
       <div>
         {[1, 2, 3, 4, 6, 7].map((itm, index) => (
           <React.Fragment key={index.toString()}>
-            <GoalCard onClick={() => navigateTo(`/staff/view/goal/${index}`)} />
+            <GoalCard
+              edit={() => edit(itm)}
+              onClick={() => navigateTo(`/staff/view/goal/${index}`)}
+            />
           </React.Fragment>
         ))}
       </div>
