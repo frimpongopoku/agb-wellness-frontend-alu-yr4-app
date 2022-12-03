@@ -1,9 +1,11 @@
 export class InternetExplorer {
-  static fetch({ method, url, headers }) {
+  static fetch({ method, url, headers, body, credentials }) {
     headers = headers || { "Content-Type": "application/json" };
+    body = JSON.stringify(body) || {};
+
     try {
-      return fetch(url, { method, headers }).then((response) =>
-        response.json()
+      return fetch(url, { method, headers, body, credentials }).then(
+        (response) => response.json()
       );
     } catch (e) {
       console.log(

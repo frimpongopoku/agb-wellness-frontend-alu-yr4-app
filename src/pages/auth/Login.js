@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Button from "../../components/button/Button";
 import TextField from "../../components/texfield/TextField";
+import { InternetExplorer } from "../../shared/api/InternetExplorer";
+import { API_LOGIN } from "../../shared/api/urls";
 import { isValidEmail } from "../../shared/utils";
 
 function Login({ showNotification }) {
@@ -8,21 +10,29 @@ function Login({ showNotification }) {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const setError = (message) => {
+    showNotification({ show: true, good: false, message });
+  };
   const sendToBackend = () => {
     showNotification({});
     if (!email || !isValidEmail(email))
-      return showNotification({
-        show: true,
-        good: false,
-        message: "Please provide valid email",
+      return setError("Please provide valid email");
+    if (!password) return setError("Please provide a valid password");
+    setLoading(true);
+    InternetExplorer.post({
+      url: API_LOGIN,
+      body: { email, password },
+      credentials: "include",
+    })
+      .then((response) => {
+        setLoading(false);
+        console.log("I think this is the response innit", response);
+        if (!response.success) return setError(response.error);
+      })
+      .catch((e) => {
+        console.log("Error:", e.toString());
+        setError(e.toString());
       });
-    if (!password)
-      return showNotification({
-        show: true,
-        good: false,
-        message: "Please provide a valid password",
-      });
-    console.log("I think all is well");
   };
 
   return (
@@ -32,12 +42,14 @@ function Login({ showNotification }) {
         label="Email address"
         type="email"
         placeholder="Enter email address..."
+        value={email}
       />
       <TextField
         onChange={(text) => setPassword(text)}
         label="Password"
         type="password"
         placeholder="Enter your password..."
+        value={password}
       />
       <br />
       <Button loading={loading} onClick={() => sendToBackend()}>
