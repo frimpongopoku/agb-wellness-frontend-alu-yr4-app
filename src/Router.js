@@ -31,18 +31,15 @@ function Router({
   putGoalsInRedux,
   putStaffsInRedux,
   putCategoriesInRedux,
-
 }) {
- 
-
-  
-
   const checkIfUserIsAuthenticated = () => {
     InternetExplorer.post({ url: API_WHO_AM_I }).then((response) => {
-      if (!response.success)
+      if (!response.success) {
+        putUserInRedux(null);
         return console.log("ERROR - WHOAMI: ", response.error);
+      }
       const { goals, staffs, categories, user } = response.data || {};
-      console.log("I think I am the response", response);
+
       putUserInRedux(user);
       putGoalsInRedux(goals);
       putStaffsInRedux(staffs);
@@ -70,16 +67,8 @@ function Router({
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Landing />} />
-          <Route
-            exact
-            path="/login"
-            element={<App  login />}
-          />
-          <Route
-            exact
-            path="/register"
-            element={<App  register />}
-          />
+          <Route exact path="/login" element={<App login />} />
+          <Route exact path="/register" element={<App register />} />
           <Route exact path="/staff" element={<Staff />} />
           <Route exact path="/staff/create/goal" element={<Staff create />} />
           <Route exact path="/staff/edit/goal/:id" element={<Staff edit />} />

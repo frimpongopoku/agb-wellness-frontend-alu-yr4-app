@@ -10,7 +10,8 @@ import { LOADING } from "./redux/reducers/reducers";
 
 function App({ toggleSidePane, login, register, user }) {
   const navigateTo = useNavigate();
-  const needsAuthentication = !user || user === LOADING;
+  const needsAuthentication = !user;
+  console.log("Lets see user", user);
   const redirectIfAuthenticated = () => {
     if (!user || user === "LOADING") return;
     if (user.isManager) return navigateTo("/manager");
@@ -19,7 +20,7 @@ function App({ toggleSidePane, login, register, user }) {
 
   const showLoginPage = () => {
     redirectIfAuthenticated();
-    if (needsAuthentication)
+    if (!user)
       toggleSidePane({
         show: true,
         component: <Authentication tab="login" />,
@@ -30,7 +31,7 @@ function App({ toggleSidePane, login, register, user }) {
 
   const showRegistrationPage = () => {
     redirectIfAuthenticated();
-    if (needsAuthentication)
+    if (!user)
       toggleSidePane({
         show: true,
         component: <Authentication tab="registration" />,
