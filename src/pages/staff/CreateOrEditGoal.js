@@ -1,10 +1,23 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import Button from "../../components/button/Button";
 import Dropdown from "../../components/dropdown/Dropdown";
 import TextField from "../../components/texfield/TextField";
+import { LOADING } from "../../redux/reducers/reducers";
+import { InternetExplorer } from "../../shared/api/InternetExplorer";
+import { API_CREATE_GOAL } from "../../shared/api/urls";
 
-function CreateOrEditGoal({ toggleSidePane, id, showNotification }) {
+function CreateOrEditGoal({
+  toggleSidePane,
+  id,
+  showNotification,
+  goals,
+  putGoalInRedux,
+  categories,
+}) {
+  categories = categories === LOADING ? [] : categories;
   const [form, setForm] = useState({});
+  const [loading, setLoading] = useState(false);
   const inEditMode = id;
 
   const onChange = (key, value) => {
@@ -28,7 +41,19 @@ function CreateOrEditGoal({ toggleSidePane, id, showNotification }) {
         "Select the date that you would like to complete this..."
       );
 
-    console.log("htis it he form", form);
+    const foundCategory = categories.find((c) => c.name === category);
+    form.categories = [foundCategory._id];
+
+    setLoading(true);
+    InternetExplorer.post({
+      url: API_CREATE_GOAL,
+      body: form,
+    }).then((response) => {
+      setLoading(false);
+      if (!response.success) return setError(response.error);
+      putGoalInRedux([response.data, ...goals]);
+      setForm({});
+    });
   };
   return (
     <div style={{ padding: "50px 15px" }}>
@@ -57,12 +82,15 @@ function CreateOrEditGoal({ toggleSidePane, id, showNotification }) {
         value={form.dueBy}
       />
       <Dropdown
+        data={categories}
+        labelExtractor={(c) => c.name}
         onChange={(value) => onChange("category", value)}
         label="Select Category"
         value={form.category}
       />
       <br />
       <Button
+        loading={loading}
         onClick={() => sendToBackend()}
         style={{ background: "var(--app-yellow)", color: "black" }}
       >
@@ -80,4 +108,7 @@ function CreateOrEditGoal({ toggleSidePane, id, showNotification }) {
   );
 }
 
-export default CreateOrEditGoal;
+const mapStateToProps = (state) => {
+  return { goals: state.goals, categories: state.categories };
+};
+export default connect(mapStateToProps)(CreateOrEditGoal);

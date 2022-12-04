@@ -1,9 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { LOADING } from "../redux/reducers/reducers";
 import Checkbox from "./checkbox/Checkbox";
 
-function GoalCard({ done, onClick, edit }) {
+function GoalCard({ done, onClick, edit, title, categories, categoriesList }) {
   const classes = onClick ? "underline touchable-opacity" : "";
+  let list = [];
+  if (categoriesList !== LOADING)
+    list = (categoriesList || []).filter((cat) =>
+      (categories || []).includes(cat._id.toString())
+    );
   return (
     <div
       className={done ? "done" : ""}
@@ -18,10 +24,17 @@ function GoalCard({ done, onClick, edit }) {
           onClick={() => onClick && onClick()}
         >
           <small style={{ fontSize: 15 }}>
-            <b>No Red Meat</b>
+            <b>{title || ""}</b>
           </small>
           <br />
-          <small style={{ color: "var(--app-light-text)" }}>HEALTH</small>
+          {list.map((c, i) => (
+            <small
+              key={i.toString()}
+              style={{ color: "var(--app-light-text)", marginRight: 3 }}
+            >
+              {c.name}
+            </small>
+          ))}
         </div>
         <small
           onClick={() => {

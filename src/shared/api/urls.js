@@ -11,5 +11,6 @@ export const API_WHO_AM_I = HOST + "/whoami";
 export const API_LOG_OUT = HOST + "/logout";
 export const API_ADD_STAFF = HOST + "/manager/staff.add";
 export const API_CREATE_CATEGORY = HOST + "/manager/category/create";
+export const API_CREATE_GOAL = HOST + "/staff/goal/create";
 
 export { HOST };

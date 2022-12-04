@@ -10,14 +10,28 @@ import { bindActionCreators } from "redux";
 import Button from "../../components/button/Button";
 import PageTitle from "../../components/PageTitle";
 import PageWrapper from "../../components/PageWrapper";
-import { reduxShowSidePane, reduxShowToast } from "../../redux/actions/actions";
+import {
+  reduxSetGoals,
+  reduxShowSidePane,
+  reduxShowToast,
+} from "../../redux/actions/actions";
 import Delete from "../auth/delete/Delete";
 import CreateOrEditGoal from "./CreateOrEditGoal";
 import DoneListings from "./DoneListings";
 import GoalListings from "./GoalListings";
 import ViewGoal from "./ViewGoal";
 
-function Staff({ toggleSidePane, create, edit, view, showNotification, user }) {
+function Staff({
+  toggleSidePane,
+  create,
+  edit,
+  view,
+  showNotification,
+  user,
+  putGoalInRedux,
+  goals,
+  categoriesList,
+}) {
   const navigateTo = useNavigate();
   const params = useParams();
   const id = params && params.id;
@@ -27,6 +41,7 @@ function Staff({ toggleSidePane, create, edit, view, showNotification, user }) {
       show: true,
       component: (
         <CreateOrEditGoal
+          putGoalInRedux={putGoalInRedux}
           showNotification={showNotification}
           toggleSidePane={toggleSidePane}
           id={id}
@@ -84,10 +99,12 @@ function Staff({ toggleSidePane, create, edit, view, showNotification, user }) {
             ) : (
               <>
                 <GoalListings
+                  categoriesList={categoriesList}
+                  goals={goals}
                   deleteGoals={deleteGoals}
                   edit={(id) => createGoal(id)}
                 />
-                <DoneListings />
+                <DoneListings goals={goals} categoriesList={categoriesList} />
               </>
             )}
           </div>
@@ -98,7 +115,11 @@ function Staff({ toggleSidePane, create, edit, view, showNotification, user }) {
 }
 
 const mapStateToProps = (state) => {
-  return { user: state.user };
+  return {
+    user: state.user,
+    goals: state.goals,
+    categoriesList: state.categories,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -106,6 +127,7 @@ const mapDispatchToProps = (dispatch) => {
     {
       toggleSidePane: reduxShowSidePane,
       showNotification: reduxShowToast,
+      putGoalInRedux: reduxSetGoals,
     },
     dispatch
   );
