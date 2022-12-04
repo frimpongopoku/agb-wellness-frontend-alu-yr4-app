@@ -14,7 +14,7 @@ import {
 } from "../../redux/actions/actions";
 import { LOADING } from "../../redux/reducers/reducers";
 import { InternetExplorer } from "../../shared/api/InternetExplorer";
-import { API_UPDATE_CATEGORY } from "../../shared/api/urls";
+import { API_DELETE_CATEGORY, API_DELETE_STAFF } from "../../shared/api/urls";
 import Delete from "../auth/delete/Delete";
 import AddOrEditCategory from "./AddOrEditCategory";
 import AddStaff from "./AddStaff";
@@ -82,13 +82,24 @@ function Manager({
     // delete locally
     const rem = staffs.filter((st) => !ids.includes(st._id.toString()));
     putStaffInRedux(rem);
-    cb && cb();
+    InternetExplorer.post({ url: API_DELETE_STAFF, body: { ids } }).then(
+      (response) => {
+        console.log("HEre is the goals deletion response", response);
+        cb && cb();
+      }
+    );
   };
   const doCategoryDeletion = ({ ids, cb }) => {
     // delete locally
     const rem = categories.filter((st) => !ids.includes(st._id.toString()));
     putCategoryInRedux(rem);
-    cb && cb();
+
+    InternetExplorer.post({ url: API_DELETE_CATEGORY, body: { ids } }).then(
+      (response) => {
+        console.log("HEre is the thing", response);
+        cb && cb();
+      }
+    );
   };
 
   const deleteContent = ({ selected, staffs, cb }) => {

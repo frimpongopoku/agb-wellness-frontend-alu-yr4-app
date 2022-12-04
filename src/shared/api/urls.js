@@ -14,5 +14,8 @@ export const API_CREATE_CATEGORY = HOST + "/manager/category/create";
 export const API_CREATE_GOAL = HOST + "/staff/goal/create";
 export const API_UPDATE_GOAL = HOST + "/staff/goal/update";
 export const API_UPDATE_CATEGORY = HOST + "/manager/category/update";
+export const API_DELETE_CATEGORY = HOST + "/manager/category/delete";
+export const API_DELETE_GOALS = HOST + "/staff/goal/delete";
+export const API_DELETE_STAFF = HOST + "/manager/staff/delete";
 
 export { HOST };
