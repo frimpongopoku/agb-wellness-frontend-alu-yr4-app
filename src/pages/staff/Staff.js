@@ -15,6 +15,8 @@ import {
   reduxShowSidePane,
   reduxShowToast,
 } from "../../redux/actions/actions";
+import { InternetExplorer } from "../../shared/api/InternetExplorer";
+import { API_UPDATE_GOAL } from "../../shared/api/urls";
 import Delete from "../auth/delete/Delete";
 import CreateOrEditGoal from "./CreateOrEditGoal";
 import DoneListings from "./DoneListings";
@@ -67,6 +69,24 @@ function Staff({
     });
   };
 
+  const updateInBackend = ({ data, id }) => {
+    InternetExplorer.post({ url: API_UPDATE_GOAL, body: { data, id } }).then(
+      (response) => {
+        console.log("lets see response innit", response);
+        if (!response.success)
+          return console.log("ERROR - GOAL - UPDATE: ", response.error);
+      }
+    );
+  };
+  const markAsDone = ({ id, undo }) => {
+    const items = goals || [];
+    let found = items.find((g) => g._id.toString() === id.toString());
+    const remaining = items.filter((g) => g._id.toString() !== id.toString());
+    found = { ...found, done: undo ? false : true };
+    putGoalInRedux([found, ...remaining]);
+    updateInBackend({ data: { done: undo ? false : true }, id });
+  };
+
   return (
     <PageWrapper cornerContent={<h3>H3 tag</h3>}>
       <>
@@ -99,12 +119,17 @@ function Staff({
             ) : (
               <>
                 <GoalListings
+                  markAsDone={markAsDone}
                   categoriesList={categoriesList}
                   goals={goals}
                   deleteGoals={deleteGoals}
                   edit={(id) => createGoal(id)}
                 />
-                <DoneListings goals={goals} categoriesList={categoriesList} />
+                <DoneListings
+                  undo={markAsDone}
+                  goals={goals}
+                  categoriesList={categoriesList}
+                />
               </>
             )}
           </div>

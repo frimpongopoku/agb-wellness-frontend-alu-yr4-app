@@ -3,7 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { LOADING } from "../redux/reducers/reducers";
 import Checkbox from "./checkbox/Checkbox";
 
-function GoalCard({ done, onClick, edit, title, categories, categoriesList }) {
+function GoalCard({
+  done,
+  onClick,
+  edit,
+  title,
+  categories,
+  categoriesList,
+  markAsDone,
+  _id,
+  undo,
+}) {
   const classes = onClick ? "underline touchable-opacity" : "";
   let list = [];
   if (categoriesList !== LOADING)
@@ -38,7 +48,7 @@ function GoalCard({ done, onClick, edit, title, categories, categoriesList }) {
         </div>
         <small
           onClick={() => {
-            if (done) return; // Undo
+            if (done) return undo({ id: _id, undo: true }); // Undo
             edit && edit();
           }}
           className="touchable-opacity"
@@ -54,7 +64,10 @@ function GoalCard({ done, onClick, edit, title, categories, categoriesList }) {
         </small>
       </div>
       {!done && (
-        <div className="task-done-btn touchable-opacity">
+        <div
+          className="task-done-btn touchable-opacity"
+          onClick={() => markAsDone({ id: _id })}
+        >
           <small>Done</small>
         </div>
       )}
