@@ -16,7 +16,7 @@ import {
   reduxShowToast,
 } from "../../redux/actions/actions";
 import { InternetExplorer } from "../../shared/api/InternetExplorer";
-import { API_UPDATE_GOAL } from "../../shared/api/urls";
+import { API_DELETE_GOALS, API_UPDATE_GOAL } from "../../shared/api/urls";
 import Delete from "../auth/delete/Delete";
 import CreateOrEditGoal from "./CreateOrEditGoal";
 import DoneListings from "./DoneListings";
@@ -60,10 +60,26 @@ function Staff({
     if (edit) return createGoal(id);
   }, []);
 
-  const deleteGoals = () => {
+  const doGoalsDeletion = ({ ids, cb }) => {
+    const rem = goals.filter((g) => !ids.includes(g._id.toString()));
+    putGoalInRedux(rem);
+    cb && cb();
+    InternetExplorer.post({ url: API_DELETE_GOALS, body: { ids } }).then(
+      (response) => {
+        cb && cb();
+      }
+    );
+  };
+  const deleteGoals = ({ selected, cb }) => {
     toggleSidePane({
       show: true,
-      component: <Delete count={3} close={close} />,
+      component: (
+        <Delete
+          confirm={() => doGoalsDeletion({ ids: selected, cb })}
+          count={selected.length}
+          close={close}
+        />
+      ),
     });
   };
 

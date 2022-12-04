@@ -57,8 +57,6 @@ function Manager({
       show: true,
       component: (
         <AddOrEditCategory
-          // updateInBackend={updateInBackend}
-          // putCategoryInRedux={putCategoryInRedux}
           showNotification={showNotification}
           toggleSidePane={toggleSidePane}
           id={id}
@@ -83,8 +81,7 @@ function Manager({
     const rem = staffs.filter((st) => !ids.includes(st._id.toString()));
     putStaffInRedux(rem);
     InternetExplorer.post({ url: API_DELETE_STAFF, body: { ids } }).then(
-      (response) => {
-        console.log("HEre is the goals deletion response", response);
+      (_) => {
         cb && cb();
       }
     );
@@ -95,8 +92,7 @@ function Manager({
     putCategoryInRedux(rem);
 
     InternetExplorer.post({ url: API_DELETE_CATEGORY, body: { ids } }).then(
-      (response) => {
-        console.log("HEre is the thing", response);
+      (_) => {
         cb && cb();
       }
     );

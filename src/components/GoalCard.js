@@ -13,6 +13,8 @@ function GoalCard({
   markAsDone,
   _id,
   undo,
+  select,
+  isSelected,
 }) {
   const classes = onClick ? "underline touchable-opacity" : "";
   let list = [];
@@ -26,7 +28,13 @@ function GoalCard({
       style={{ display: "flex", flexDirection: "row", marginBottom: 10 }}
     >
       <div className="staff-card" style={{ margin: 0, width: "100%" }}>
-        {!done && <Checkbox style={{ marginBottom: 0 }} />}
+        {!done && (
+          <Checkbox
+            onChange={() => select(_id)}
+            style={{ marginBottom: 0 }}
+            checked={isSelected}
+          />
+        )}
 
         <div
           className={classes}
