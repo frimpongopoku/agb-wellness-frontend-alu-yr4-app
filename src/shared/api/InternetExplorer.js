@@ -24,3 +24,4 @@ export class InternetExplorer {
     return InternetExplorer.fetch({ ...obj, method: "POST" });
   }
 }
+ 

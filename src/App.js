@@ -7,6 +7,7 @@ import Authentication from "./pages/auth/Authentication";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { LOADING } from "./redux/reducers/reducers";
+import Loader from "./components/loader/Loader";
 
 function App({ toggleSidePane, login, register, user }) {
   const navigateTo = useNavigate();
@@ -45,6 +46,7 @@ function App({ toggleSidePane, login, register, user }) {
     if (register) return showRegistrationPage();
   }, [user]);
 
+  const loadingUser = user === LOADING;
   return (
     <PageSkeleton>
       <>
@@ -52,18 +54,25 @@ function App({ toggleSidePane, login, register, user }) {
           <h1 style={{ color: "white" }}>AGB</h1>
           <h3>LIMITED CORPORATION</h3>
           <p>Employee Health Portal</p>
-          <div style={{ display: "flex", flexDirection: "row", marginTop: 20 }}>
-            <Button
-              onClick={() => showLoginPage()}
-              accent
-              style={{ marginRight: 20 }}
+          <br />
+          {loadingUser ? (
+            <Loader loading={loadingUser} />
+          ) : (
+            <div
+              style={{ display: "flex", flexDirection: "row", marginTop: 20 }}
             >
-              LOGIN
-            </Button>
-            <Button onClick={() => showRegistrationPage()} accent>
-              REGISTER
-            </Button>
-          </div>
+              <Button
+                onClick={() => showLoginPage()}
+                accent
+                style={{ marginRight: 20 }}
+              >
+                LOGIN
+              </Button>
+              <Button onClick={() => showRegistrationPage()} accent>
+                REGISTER
+              </Button>
+            </div>
+          )}
         </div>
       </>
     </PageSkeleton>

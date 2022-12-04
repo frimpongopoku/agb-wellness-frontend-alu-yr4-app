@@ -8,6 +8,6 @@ function Loader({ children, text, loading, style }) {
       <span>{children || text}</span>
     </div>
   );
-}
+} 
 
 export default Loader;

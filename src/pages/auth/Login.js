@@ -5,7 +5,7 @@ import { InternetExplorer } from "../../shared/api/InternetExplorer";
 import { API_LOGIN } from "../../shared/api/urls";
 import { isValidEmail } from "../../shared/utils";
 
-function Login({ showNotification, putUserInRedux }) {
+function Login({ showNotification }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -25,9 +25,8 @@ function Login({ showNotification, putUserInRedux }) {
     })
       .then((response) => {
         setLoading(false);
-        console.log("I think this is the response innit", response);
         if (!response.success) return setError(response.error);
-        putUserInRedux(response.data);
+        window.location.reload();
       })
       .catch((e) => {
         console.log("Error:", e.toString());

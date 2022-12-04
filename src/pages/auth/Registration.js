@@ -3,6 +3,11 @@ import Button from "../../components/button/Button";
 import Checkbox from "../../components/checkbox/Checkbox";
 import Dropdown from "../../components/dropdown/Dropdown";
 import TextField from "../../components/texfield/TextField";
+import { InternetExplorer } from "../../shared/api/InternetExplorer";
+import {
+  API_MANAGER_REGISTRATION,
+  API_STAFF_REGISTRATION,
+} from "../../shared/api/urls";
 import { isValidEmail } from "../../shared/utils";
 
 function Registration({ showNotification }) {
@@ -18,9 +23,11 @@ function Registration({ showNotification }) {
   };
 
   const sendToBackend = () => {
-    const { email, password, confirmPassword, code, name, dob } = form;
+    const { email, password, confirmPassword, code, firstName, lastName, dob } =
+      form;
     if (!email || !isValidEmail(email)) return setError("Enter a valid email");
-    if (!name) return setError("You need to provide a name...");
+    if (!firstName || !lastName)
+      return setError("You need to provide a name...");
     if (!dob) return setError("Please provide a date of birth");
     if (!password) return setError("Enter a valid password");
     if (password !== confirmPassword)
@@ -29,7 +36,16 @@ function Registration({ showNotification }) {
       setError("Please provide your given code to proceed with registration");
     showNotification({});
     setLoading(true);
+
+    const url = isManager ? API_MANAGER_REGISTRATION : API_STAFF_REGISTRATION;
     // ---------------------------------------------------------
+
+    InternetExplorer.post({ url, body: form }).then((response) => {
+      setLoading(false);
+      console.log("Here is the registration resposne", response);
+      if (!response.success) return setError(response.error);
+      window.location.reload();
+    });
   };
   return (
     <div>
@@ -38,12 +54,21 @@ function Registration({ showNotification }) {
         label="Email addresss"
         type="email"
         placeholder="Enter email address..."
+        value={form.email || ""}
       />
       <TextField
-        onChange={(name) => onChange("name", name)}
-        label="Your name"
+        onChange={(name) => onChange("firstName", name)}
+        label="Your First Name"
         type="text"
         placeholder="What would you like to be called?"
+        value={form.firstName || ""}
+      />
+      <TextField
+        onChange={(name) => onChange("lastName", name)}
+        label="Your Last Name"
+        type="text"
+        placeholder="Whats your last name?"
+        value={form.lastName || ""}
       />
       <TextField
         onChange={(dob) => onChange("dob", dob)}
@@ -51,18 +76,21 @@ function Registration({ showNotification }) {
         type="date"
         generic={{ max: new Date() }}
         placeholder="Enter your date of birth..."
+        value={form.dob || ""}
       />
       <TextField
         onChange={(pass) => onChange("password", pass)}
         label="Your Password"
         type="password"
         placeholder="Enter your password..."
+        value={form.password || ""}
       />
       <TextField
         onChange={(pass) => onChange("confirmPassword", pass)}
         label="Confirm Password"
         type="password"
         placeholder="Confirm your password..."
+        value={form.confirmPassword || ""}
       />
       <div>
         <Checkbox
@@ -80,6 +108,7 @@ function Registration({ showNotification }) {
         placeholder={`Enter your given ${
           isManager ? "manager" : "staff"
         } code...`}
+        value={form.code || ""}
       />
 
       <br />
