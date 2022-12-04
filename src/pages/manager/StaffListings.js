@@ -1,7 +1,23 @@
 import React from "react";
+import Loader from "../../components/loader/Loader";
 import StaffCard from "../../components/StaffCard";
+import { LOADING } from "../../redux/reducers/reducers";
 
-function StaffListings({ deleteStaff }) {
+function StaffListings({ deleteStaff, staffs }) {
+  if (staffs === LOADING) return <Loader />;
+  if (!staffs || !staffs.length)
+    return (
+      <p
+        style={{
+          fontWeight: "bold",
+          padding: "20px",
+          textAlign: "center",
+          maxWidth: "50%",
+        }}
+      >
+        There are no staffs available yet, feel free to add them..
+      </p>
+    );
   return (
     <div className="partition">
       <div style={{ display: "flex", flexDirection: "row" }}>
@@ -15,8 +31,8 @@ function StaffListings({ deleteStaff }) {
         </h3>
       </div>
       <div>
-        {[1, 2, 3, 4, 6, 7].map((itm, index) => (
-          <StaffCard />
+        {(staffs || []).map((staff, index) => (
+          <StaffCard {...staff} />
         ))}
       </div>
     </div>

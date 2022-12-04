@@ -241,6 +241,9 @@ p {
   width: 100%;
   min-height: 500px;
   margin-right: 10px;
+  max-height: 70vh;
+  overflow-y: scroll;
+  padding-bottom: 60px;
 }
 
 .partition h3 {

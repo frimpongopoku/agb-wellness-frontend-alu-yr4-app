@@ -17,7 +17,8 @@ import DoneListings from "./DoneListings";
 import GoalListings from "./GoalListings";
 import ViewGoal from "./ViewGoal";
 
-function Staff({ toggleSidePane, create, edit, view, showNotification }) {
+function Staff({ toggleSidePane, create, edit, view, showNotification, user }) {
+  const navigateTo = useNavigate();
   const params = useParams();
   const id = params && params.id;
 
@@ -66,6 +67,15 @@ function Staff({ toggleSidePane, create, edit, view, showNotification }) {
             >
               NEW GOAL
             </Button>
+            {user?.isManager && (
+              <Button
+                style={{ marginLeft: "auto", width: "auto" }}
+                onClick={() => navigateTo("/manager")}
+                accent
+              >
+                MANAGEMENT
+              </Button>
+            )}
           </div>
 
           <div className="content-partition">
@@ -88,7 +98,7 @@ function Staff({ toggleSidePane, create, edit, view, showNotification }) {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return { user: state.user };
 };
 
 const mapDispatchToProps = (dispatch) => {

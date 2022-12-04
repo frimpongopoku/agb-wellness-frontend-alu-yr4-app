@@ -1,17 +1,17 @@
 import React from "react";
 import Checkbox from "./checkbox/Checkbox";
 
-function StaffCard() {
+function StaffCard({ image, firstName, lastName, email }) {
   return (
     <div className="staff-card">
-      <img src="https://i.pravatar.cc/300" />
+      <img src={image} />
       <div style={{ margin: "0px 15px", color: "white" }}>
         <small style={{ fontSize: 15 }}>
-          <b>Whan Gi Chooms</b>
+          <b>{`${firstName} ${lastName || ""}`}</b>
         </small>
         <br />
         <small style={{ color: "var(--app-light-text)" }}>
-          lospongos@gmail.com
+          {email || "..."}
         </small>
       </div>
       <Checkbox style={{ marginBottom: 0, marginLeft: "auto" }} />

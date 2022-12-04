@@ -38,9 +38,11 @@ function Registration({ showNotification }) {
     setLoading(true);
 
     const url = isManager ? API_MANAGER_REGISTRATION : API_STAFF_REGISTRATION;
+    const image = "https://i.pravatar.cc/200?u=" + Math.random().toString();
+    const body = isManager ? { ...form, image } : form;
     // ---------------------------------------------------------
 
-    InternetExplorer.post({ url, body: form }).then((response) => {
+    InternetExplorer.post({ url, body }).then((response) => {
       setLoading(false);
       console.log("Here is the registration resposne", response);
       if (!response.success) return setError(response.error);
