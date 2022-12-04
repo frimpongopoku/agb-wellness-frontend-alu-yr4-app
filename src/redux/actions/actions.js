@@ -1,3 +1,5 @@
+import { InternetExplorer } from "../../shared/api/InternetExplorer";
+import { API_LOG_OUT } from "../../shared/api/urls";
 import {
   DO_NOTHING,
   SET_AUTH_USER,
@@ -32,6 +34,11 @@ export const reduxSetCategories = (payload) => {
   return { type: SET_CATEGORIES, payload };
 };
 
-
-
-
+export const signOut = (cb) => (dispatch) => {
+  InternetExplorer.post({ url: API_LOG_OUT }).then((response) => {
+    console.log("I logged out nicely", response);
+    if (!response.success) return console.log("ERROR - LOGOUT", response.error);
+    dispatch(reduxSetAuthUser(null));
+    cb && cb();
+  });
+};

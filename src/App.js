@@ -5,30 +5,44 @@ import PageSkeleton from "./components/PageSkeleton";
 import Button from "./components/button/Button";
 import Authentication from "./pages/auth/Authentication";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { LOADING } from "./redux/reducers/reducers";
 
-function App({ toggleSidePane, login, register }) {
+function App({ toggleSidePane, login, register, user }) {
+  const navigateTo = useNavigate();
+  const needsAuthentication = !user || user === LOADING;
+  const redirectIfAuthenticated = () => {
+    if (!user || user === "LOADING") return;
+    if (user.isManager) return navigateTo("/manager");
+    navigateTo("/staff");
+  };
+
   const showLoginPage = () => {
-    toggleSidePane({
-      show: true,
-      component: <Authentication tab="login" />,
-      closeWithBackground: true,
-      blanketStyle: { opacity: 0 },
-    });
+    redirectIfAuthenticated();
+    if (needsAuthentication)
+      toggleSidePane({
+        show: true,
+        component: <Authentication tab="login" />,
+        closeWithBackground: true,
+        blanketStyle: { opacity: 0 },
+      });
   };
 
   const showRegistrationPage = () => {
-    toggleSidePane({
-      show: true,
-      component: <Authentication tab="registration" />,
-      closeWithBackground: true,
-      blanketStyle: { opacity: 0 },
-    });
+    redirectIfAuthenticated();
+    if (needsAuthentication)
+      toggleSidePane({
+        show: true,
+        component: <Authentication tab="registration" />,
+        closeWithBackground: true,
+        blanketStyle: { opacity: 0 },
+      });
   };
 
   useEffect(() => {
     if (login) return showLoginPage();
     if (register) return showRegistrationPage();
-  }, []);
+  }, [user]);
 
   return (
     <PageSkeleton>
@@ -58,6 +72,7 @@ function App({ toggleSidePane, login, register }) {
 const mapStateToProps = (state) => {
   return {
     testStore: state.testStore,
+    user: state.user,
   };
 };
 

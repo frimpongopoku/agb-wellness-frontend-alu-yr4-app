@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import App from "./App";
 import Landing from "./App";
@@ -11,6 +11,9 @@ import Manager from "./pages/manager/Manager";
 import Staff from "./pages/staff/Staff";
 import {
   reduxSetAuthUser,
+  reduxSetCategories,
+  reduxSetGoals,
+  reduxSetStaffs,
   reduxShowSidePane,
   reduxShowToast,
 } from "./redux/actions/actions";
@@ -25,11 +28,25 @@ function Router({
   toggleToast,
   toggleSidePane,
   putUserInRedux,
+  putGoalsInRedux,
+  putStaffsInRedux,
+  putCategoriesInRedux,
+
 }) {
+ 
+
+  
+
   const checkIfUserIsAuthenticated = () => {
     InternetExplorer.post({ url: API_WHO_AM_I }).then((response) => {
       if (!response.success)
         return console.log("ERROR - WHOAMI: ", response.error);
+      const { goals, staffs, categories, user } = response.data || {};
+      console.log("I think I am the response", response);
+      putUserInRedux(user);
+      putGoalsInRedux(goals);
+      putStaffsInRedux(staffs);
+      putCategoriesInRedux(categories);
     });
   };
   useEffect(() => {
@@ -53,8 +70,16 @@ function Router({
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Landing />} />
-          <Route exact path="/login" element={<App login />} />
-          <Route exact path="/register" element={<App register />} />
+          <Route
+            exact
+            path="/login"
+            element={<App  login />}
+          />
+          <Route
+            exact
+            path="/register"
+            element={<App  register />}
+          />
           <Route exact path="/staff" element={<Staff />} />
           <Route exact path="/staff/create/goal" element={<Staff create />} />
           <Route exact path="/staff/edit/goal/:id" element={<Staff edit />} />
@@ -79,7 +104,11 @@ function Router({
 }
 
 const mapStateToProps = (state) => {
-  return { sidepane: state.sidepane, toastOptions: state.toastOptions };
+  return {
+    sidepane: state.sidepane,
+    toastOptions: state.toastOptions,
+    user: state.user,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -88,6 +117,9 @@ const mapDispatchToProps = (dispatch) => {
       toggleToast: reduxShowToast,
       toggleSidePane: reduxShowSidePane,
       putUserInRedux: reduxSetAuthUser,
+      putGoalsInRedux: reduxSetGoals,
+      putCategoriesInRedux: reduxSetCategories,
+      putStaffsInRedux: reduxSetStaffs,
     },
     dispatch
   );

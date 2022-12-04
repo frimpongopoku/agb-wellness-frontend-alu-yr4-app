@@ -8,7 +8,7 @@ import {
   TOGGLE_TOAST,
 } from "../ReduxConstants";
 
-const LOADING = "LOADING";
+export const LOADING = "LOADING";
 export const doNothingReducer = (state = [], action = {}) => {
   if (action.type === DO_NOTHING) {
     return action.payload;
