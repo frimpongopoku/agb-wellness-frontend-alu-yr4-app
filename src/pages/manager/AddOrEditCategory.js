@@ -94,10 +94,10 @@ function AddOrEditCategory({
       <br />
       <TextField
         onChange={(text) => setName(text)}
-        label="Name (40 Chars)"
+        label="Name (30 Chars)"
         placeholder="Name  of new category..."
         value={name}
-        generic={{ maxLength: 40 }}
+        generic={{ maxLength: 30 }}
       />
       <TextField
         textarea

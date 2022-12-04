@@ -14,7 +14,7 @@ function GoalListings({
 }) {
   const navigateTo = useNavigate();
 
-  if (goals === LOADING) return <Loader />;
+  if (goals === LOADING) return <Loader loading />;
   goals = goals.filter((g) => g.done === false);
   // -------------------------------------------------------
   if (!goals || !goals.length)

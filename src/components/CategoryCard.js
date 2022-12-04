@@ -1,7 +1,7 @@
 import React from "react";
 import Checkbox from "./checkbox/Checkbox";
 
-function CategoryCard({ edit, name }) {
+function CategoryCard({ _id, edit, name, isSelected, select }) {
   const initials = (name || "").substring(0, 2);
   return (
     <div className="categories-card">
@@ -24,7 +24,11 @@ function CategoryCard({ edit, name }) {
           Edit
         </small>
       </div>
-      <Checkbox style={{ marginBottom: 0, marginLeft: "auto" }} />
+      <Checkbox
+        checked={isSelected}
+        onChange={() => select(_id)}
+        style={{ marginBottom: 0, marginLeft: "auto" }}
+      />
     </div>
   );
 }

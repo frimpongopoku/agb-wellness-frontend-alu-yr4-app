@@ -4,7 +4,7 @@ import Loader from "../../components/loader/Loader";
 import { LOADING } from "../../redux/reducers/reducers";
 
 function DoneListings({ goals, categoriesList, undo }) {
-  if (goals === LOADING) return <Loader />;
+  if (goals === LOADING) return <Loader show />;
   goals = goals.filter((g) => g.done);
   // -------------------------------------------------------
   if (!goals || !goals.length)
@@ -29,7 +29,7 @@ function DoneListings({ goals, categoriesList, undo }) {
       <div>
         {goals.map((goal, index) => (
           <React.Fragment key={index.toString()}>
-            <GoalCard undo = {undo} {...goal} done />
+            <GoalCard undo={undo} {...goal} done />
           </React.Fragment>
         ))}
       </div>

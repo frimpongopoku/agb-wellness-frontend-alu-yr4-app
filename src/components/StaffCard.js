@@ -1,7 +1,15 @@
 import React from "react";
 import Checkbox from "./checkbox/Checkbox";
 
-function StaffCard({ image, firstName, lastName, email }) {
+function StaffCard({
+  _id,
+  image,
+  firstName,
+  lastName,
+  email,
+  select,
+  isSelected,
+}) {
   return (
     <div className="staff-card">
       <img src={image} />
@@ -14,7 +22,11 @@ function StaffCard({ image, firstName, lastName, email }) {
           {email || "..."}
         </small>
       </div>
-      <Checkbox style={{ marginBottom: 0, marginLeft: "auto" }} />
+      <Checkbox
+        checked={isSelected}
+        onChange={() => select(_id)}
+        style={{ marginBottom: 0, marginLeft: "auto" }}
+      />
     </div>
   );
 }

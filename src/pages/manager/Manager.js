@@ -37,7 +37,6 @@ function Manager({
   const params = useParams();
   const id = params && params.id;
 
-
   const addStaff = () => {
     toggleSidePane({
       show: true,
@@ -79,12 +78,29 @@ function Manager({
     if (editCategory) return createCategory(id);
   }, []);
 
-  const deleteStaff = () => {
+  const doStaffDeletion = ({ ids, cb }) => {
+    // delete locally
+    const rem = staffs.filter((st) => !ids.includes(st._id.toString()));
+    putStaffInRedux(rem);
+    cb && cb();
+  };
+  const doCategoryDeletion = ({ ids, cb }) => {
+    // delete locally
+    const rem = categories.filter((st) => !ids.includes(st._id.toString()));
+    putCategoryInRedux(rem);
+    cb && cb();
+  };
+
+  const deleteContent = ({ selected, staffs, cb }) => {
     toggleSidePane({
       show: true,
       component: (
         <Delete
-          count={3}
+          confirm={() => {
+            if (staffs) return doStaffDeletion({ ids: selected, cb });
+            doCategoryDeletion({ ids: selected, cb });
+          }}
+          count={selected.length}
           close={() => toggleSidePane({ show: false, component: null })}
         />
       ),
@@ -122,18 +138,17 @@ function Manager({
           </div>
 
           <div className="content-partition">
-            <StaffListings staffs={staffs} deleteStaff={deleteStaff} />
+            <StaffListings staffs={staffs} deleteStaff={deleteContent} />
             <CategoryListings
               categories={categories}
               edit={(id) => {
                 navigateTo(`/manager/edit/category/${id}`);
                 createCategory(id);
               }}
-              deleteStaff={deleteStaff}
+              deleteCategories={deleteContent}
             />
           </div>
         </div>
-        <Loader loading>Page is loading...</Loader>
       </>
     </PageWrapper>
   );
