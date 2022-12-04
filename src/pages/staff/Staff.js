@@ -43,6 +43,7 @@ function Staff({
       show: true,
       component: (
         <CreateOrEditGoal
+          updateInBackend={updateInBackend}
           putGoalInRedux={putGoalInRedux}
           showNotification={showNotification}
           toggleSidePane={toggleSidePane}
@@ -69,12 +70,16 @@ function Staff({
     });
   };
 
-  const updateInBackend = ({ data, id }) => {
+  const updateInBackend = ({ data, id, cb }) => {
     InternetExplorer.post({ url: API_UPDATE_GOAL, body: { data, id } }).then(
       (response) => {
         console.log("lets see response innit", response);
         if (!response.success)
           return console.log("ERROR - GOAL - UPDATE: ", response.error);
+
+        const rem = goals.filter((g) => g._id.toString() !== id.toString());
+        putGoalInRedux([response.data, ...rem]);
+        cb && cb();
       }
     );
   };
@@ -123,7 +128,10 @@ function Staff({
                   categoriesList={categoriesList}
                   goals={goals}
                   deleteGoals={deleteGoals}
-                  edit={(id) => createGoal(id)}
+                  edit={(id) => {
+                    navigateTo(`/staff/edit/goal/${id}`);
+                    createGoal(id);
+                  }}
                 />
                 <DoneListings
                   undo={markAsDone}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import Button from "../../components/button/Button";
 import Dropdown from "../../components/dropdown/Dropdown";
@@ -6,6 +6,7 @@ import TextField from "../../components/texfield/TextField";
 import { LOADING } from "../../redux/reducers/reducers";
 import { InternetExplorer } from "../../shared/api/InternetExplorer";
 import { API_CREATE_GOAL } from "../../shared/api/urls";
+import { dateToInputFormat } from "../../shared/utils";
 
 function CreateOrEditGoal({
   toggleSidePane,
@@ -14,8 +15,10 @@ function CreateOrEditGoal({
   goals,
   putGoalInRedux,
   categories,
+  updateInBackend,
 }) {
   categories = categories === LOADING ? [] : categories;
+  goals = goals === LOADING ? [] : goals;
   const [form, setForm] = useState({});
   const [loading, setLoading] = useState(false);
   const inEditMode = id;
@@ -43,8 +46,11 @@ function CreateOrEditGoal({
 
     const foundCategory = categories.find((c) => c.name === category);
     form.categories = [foundCategory._id];
-
     setLoading(true);
+
+    if (inEditMode)
+      return updateInBackend({ id, data: form, cb: () => setLoading(false) });
+
     InternetExplorer.post({
       url: API_CREATE_GOAL,
       body: form,
@@ -55,6 +61,25 @@ function CreateOrEditGoal({
       setForm({});
     });
   };
+
+  useEffect(() => {
+    if (!id) return;
+    let found = goals.find((g) => g._id.toString() === id.toString());
+
+    let form = {};
+    if (found) {
+      let first = (found.categories || [])[0] || "";
+      let cat = categories.find((c) => c._id.toString() === first.toString());
+      form = {
+        title: found.title,
+        description: found.description,
+        dueBy: found.dueBy,
+        category: cat && cat.name,
+      };
+    }
+    setForm(form);
+  }, [id, goals, categories]);
+
   return (
     <div style={{ padding: "50px 15px" }}>
       <h1 style={{ color: "black" }}>
@@ -79,7 +104,7 @@ function CreateOrEditGoal({
         type="date"
         label="Date of completion"
         placeholder="Goal should be complete by..."
-        value={form.dueBy}
+        value={dateToInputFormat(form.dueBy)}
       />
       <Dropdown
         data={categories}

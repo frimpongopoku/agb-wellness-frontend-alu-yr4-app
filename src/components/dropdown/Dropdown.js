@@ -1,6 +1,13 @@
 import React from "react";
 import "./dropdown.css";
-function Dropdown({ onChange, data, label, valueExtractor, labelExtractor }) {
+function Dropdown({
+  onChange,
+  data,
+  label,
+  valueExtractor,
+  labelExtractor,
+  value,
+}) {
   const getLabel = (item) => {
     if (labelExtractor) return labelExtractor(item);
     return item.toString();
@@ -9,7 +16,7 @@ function Dropdown({ onChange, data, label, valueExtractor, labelExtractor }) {
     if (valueExtractor) return valueExtractor(item);
     return item.toString();
   };
-  
+
   return (
     <div>
       {label && (
@@ -19,6 +26,7 @@ function Dropdown({ onChange, data, label, valueExtractor, labelExtractor }) {
       )}
       <div className="drop-root">
         <select
+          value={value || ""}
           onChange={(e) => onChange && onChange(e.target.value)}
           className="drop-main"
           placeholder="Select something right now..."

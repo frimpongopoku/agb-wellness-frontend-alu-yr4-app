@@ -5,7 +5,13 @@ import GoalCard from "../../components/GoalCard";
 import Loader from "../../components/loader/Loader";
 import { LOADING } from "../../redux/reducers/reducers";
 
-function GoalListings({ edit, deleteGoals, goals, categoriesList, markAsDone }) {
+function GoalListings({
+  edit,
+  deleteGoals,
+  goals,
+  categoriesList,
+  markAsDone,
+}) {
   const navigateTo = useNavigate();
 
   if (goals === LOADING) return <Loader />;
@@ -45,10 +51,10 @@ function GoalListings({ edit, deleteGoals, goals, categoriesList, markAsDone }) 
           <React.Fragment key={index.toString()}>
             <GoalCard
               {...goal}
-              edit={() => edit(goal)}
+              edit={() => edit(goal._id)}
               onClick={() => navigateTo(`/staff/view/goal/${index}`)}
               categoriesList={categoriesList}
-              markAsDone = {markAsDone}
+              markAsDone={markAsDone}
             />
           </React.Fragment>
         ))}
