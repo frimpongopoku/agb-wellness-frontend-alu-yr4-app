@@ -2,7 +2,6 @@ import React from "react";
 import { LOADING } from "../redux/reducers/reducers";
 
 function UserInfo({ user }) {
-  console.log("where is the user", user);
   user = user === LOADING || !user ? {} : user;
   const { firstName, roles, image } = user;
 

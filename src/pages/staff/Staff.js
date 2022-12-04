@@ -38,6 +38,8 @@ function Staff({
   const params = useParams();
   const id = params && params.id;
 
+  const close = () => toggleSidePane({ show: false, component: null });
+
   const createGoal = (id) => {
     toggleSidePane({
       show: true,
@@ -61,12 +63,7 @@ function Staff({
   const deleteGoals = () => {
     toggleSidePane({
       show: true,
-      component: (
-        <Delete
-          count={3}
-          close={() => toggleSidePane({ show: false, component: null })}
-        />
-      ),
+      component: <Delete count={3} close={close} />,
     });
   };
 
@@ -80,9 +77,11 @@ function Staff({
         const rem = goals.filter((g) => g._id.toString() !== id.toString());
         putGoalInRedux([response.data, ...rem]);
         cb && cb();
+        close();
       }
     );
   };
+
   const markAsDone = ({ id, undo }) => {
     const items = goals || [];
     let found = items.find((g) => g._id.toString() === id.toString());

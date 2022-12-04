@@ -13,6 +13,8 @@ import {
   reduxShowToast,
 } from "../../redux/actions/actions";
 import { LOADING } from "../../redux/reducers/reducers";
+import { InternetExplorer } from "../../shared/api/InternetExplorer";
+import { API_UPDATE_CATEGORY } from "../../shared/api/urls";
 import Delete from "../auth/delete/Delete";
 import AddOrEditCategory from "./AddOrEditCategory";
 import AddStaff from "./AddStaff";
@@ -23,7 +25,7 @@ function Manager({
   toggleSidePane,
   staff,
   category,
-  edit,
+  editCategory,
   showNotification,
   putStaffInRedux,
   staffs, // list of staff members
@@ -33,6 +35,8 @@ function Manager({
 }) {
   const navigateTo = useNavigate();
   const params = useParams();
+  const id = params && params.id;
+
 
   const addStaff = () => {
     toggleSidePane({
@@ -47,12 +51,15 @@ function Manager({
     });
   };
 
+  useEffect(() => {}, [categories, staffs]);
+
   const createCategory = (id = null) => {
     toggleSidePane({
       show: true,
       component: (
         <AddOrEditCategory
-          putCategoryInRedux={putCategoryInRedux}
+          // updateInBackend={updateInBackend}
+          // putCategoryInRedux={putCategoryInRedux}
           showNotification={showNotification}
           toggleSidePane={toggleSidePane}
           id={id}
@@ -69,10 +76,8 @@ function Manager({
   useEffect(() => {
     if (staff) return addStaff();
     if (category) return createCategory();
-    if (edit) return createCategory(params && params.id);
+    if (editCategory) return createCategory(id);
   }, []);
-
-  useEffect(() => {}, [categories, staffs]);
 
   const deleteStaff = () => {
     toggleSidePane({
@@ -120,7 +125,10 @@ function Manager({
             <StaffListings staffs={staffs} deleteStaff={deleteStaff} />
             <CategoryListings
               categories={categories}
-              edit={(id) => createCategory(id)}
+              edit={(id) => {
+                navigateTo(`/manager/edit/category/${id}`);
+                createCategory(id);
+              }}
               deleteStaff={deleteStaff}
             />
           </div>

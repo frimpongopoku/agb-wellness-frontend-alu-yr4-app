@@ -35,7 +35,7 @@ function CategoryListings({ edit, deleteStaff, categories }) {
       <div>
         {(categories || []).map((cat, index) => (
           <React.Fragment key={index.toString()}>
-            <CategoryCard {...cat} edit={() => edit(cat)} />
+            <CategoryCard {...cat} edit={() => edit(cat._id)} />
           </React.Fragment>
         ))}
       </div>

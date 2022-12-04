@@ -13,6 +13,6 @@ export const API_ADD_STAFF = HOST + "/manager/staff.add";
 export const API_CREATE_CATEGORY = HOST + "/manager/category/create";
 export const API_CREATE_GOAL = HOST + "/staff/goal/create";
 export const API_UPDATE_GOAL = HOST + "/staff/goal/update";
-export const API_UPDATE_CATEGORY = HOST + "/staff/category/update";
+export const API_UPDATE_CATEGORY = HOST + "/manager/category/update";
 
 export { HOST };

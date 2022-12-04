@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import Button from "../../components/button/Button";
 import TextField from "../../components/texfield/TextField";
+import { reduxSetCategories } from "../../redux/actions/actions";
+import { LOADING } from "../../redux/reducers/reducers";
 import { InternetExplorer } from "../../shared/api/InternetExplorer";
-import { API_CREATE_CATEGORY } from "../../shared/api/urls";
+import {
+  API_CREATE_CATEGORY,
+  API_UPDATE_CATEGORY,
+} from "../../shared/api/urls";
 
 function AddOrEditCategory({
   toggleSidePane,
@@ -12,8 +18,8 @@ function AddOrEditCategory({
   putCategoryInRedux,
   categories,
 }) {
+  categories = categories === LOADING ? [] : categories;
   const inEditMode = id;
-
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -22,6 +28,32 @@ function AddOrEditCategory({
     showNotification({ show: true, good: false, message });
   };
 
+  useEffect(() => {
+    if (!id) return;
+    let found = categories.find((c) => c._id.toString() === id.toString());
+
+    if (found) {
+      setName(found.name);
+      setDescription(found.description);
+    }
+  }, [id, categories]);
+
+  const close = () => {
+    toggleSidePane({ show: false, component: null });
+  };
+  const updateInBackend = ({ data, id, cb }) => {
+    InternetExplorer.post({
+      url: API_UPDATE_CATEGORY,
+      body: { data, id },
+    }).then((response) => {
+      if (!response.success)
+        return console.log("ERROR - Category - UPDATE: ", response.error);
+      const rem = categories.filter((g) => g._id.toString() !== id.toString());
+      putCategoryInRedux([response.data, ...rem]);
+      cb && cb();
+      close();
+    });
+  };
 
   const sendToBackend = () => {
     showNotification({});
@@ -32,12 +64,21 @@ function AddOrEditCategory({
       );
 
     setLoading(true);
+    if (inEditMode)
+      return updateInBackend({
+        id,
+        data: { name, description },
+        cb: () => {
+          setLoading(false);
+        },
+      });
+
+    // ----------------------------------------
     InternetExplorer.post({
       url: API_CREATE_CATEGORY,
       body: { name, description },
     }).then((response) => {
       setLoading(false);
-      console.log("Add to category respnose", response);
       if (!response.success) setError(response.error);
       putCategoryInRedux([response.data, ...categories]);
       setName("");
@@ -69,12 +110,10 @@ function AddOrEditCategory({
 
       <br />
       <Button onClick={() => sendToBackend()} loading={loading}>
-        ADD CATEGORY
+        {inEditMode ? "SAVE CHANGES" : "ADD CATEGORY"}
       </Button>
       <Button
-        onClick={() =>
-          toggleSidePane && toggleSidePane({ show: false, component: null })
-        }
+        onClick={() => close()}
         style={{ background: "var(--app-red)", marginTop: 10 }}
       >
         CLOSE
@@ -83,7 +122,15 @@ function AddOrEditCategory({
   );
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      putCategoryInRedux: reduxSetCategories,
+    },
+    dispatch
+  );
+};
 const mapStateToProps = (state) => {
   return { categories: state.categories };
 };
-export default connect(mapStateToProps)(AddOrEditCategory);
+export default connect(mapStateToProps, mapDispatchToProps)(AddOrEditCategory);

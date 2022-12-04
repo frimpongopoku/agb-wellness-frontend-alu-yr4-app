@@ -9,12 +9,19 @@ function CategoryCard({ edit, name }) {
         {initials}
       </div>
       <div style={{ margin: "0px 15px", color: "white" }}>
+        <small style={{ fontSize: 15 }}>
+          <b>{name || "..."}</b>
+        </small>
         <small
           onClick={() => edit && edit()}
-          style={{ fontSize: 15 }}
           className="underline touchable-opacity"
+          style={{
+            marginLeft: 10,
+            fontWeight: "bold",
+            color: "var(--app-light-text)",
+          }}
         >
-          <b>{name || "..."}</b>
+          Edit
         </small>
       </div>
       <Checkbox style={{ marginBottom: 0, marginLeft: "auto" }} />
