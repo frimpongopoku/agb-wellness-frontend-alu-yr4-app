@@ -62,13 +62,22 @@ function App({ toggleSidePane, login, register, user }) {
               style={{ display: "flex", flexDirection: "row", marginTop: 20 }}
             >
               <Button
-                onClick={() => showLoginPage()}
+                onClick={() => {
+                  showLoginPage();
+                  navigateTo("/login");
+                }}
                 accent
                 style={{ marginRight: 20 }}
               >
                 LOGIN
               </Button>
-              <Button onClick={() => showRegistrationPage()} accent>
+              <Button
+                onClick={() => {
+                  showRegistrationPage();
+                  navigateTo("/register");
+                }}
+                accent
+              >
                 REGISTER
               </Button>
             </div>

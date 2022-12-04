@@ -8,7 +8,7 @@ import CornerTriangle from "./CornerTriangle";
 import PageSkeleton from "./PageSkeleton";
 import UserInfo from "./UserInfo";
 
-function PageWrapper({ children, signOut }) {
+function PageWrapper({ children, signOut, user }) {
   const navigateTo = useNavigate();
   const signUserOut = () => {
     signOut(() => navigateTo("/login"));
@@ -17,7 +17,7 @@ function PageWrapper({ children, signOut }) {
     <PageSkeleton>
       <>
         <CornerTriangle>
-          <UserInfo />
+          <UserInfo user={user} />
         </CornerTriangle>
         <div className="app-page">
           <div className="top-bins">
@@ -44,6 +44,10 @@ function PageWrapper({ children, signOut }) {
   );
 }
 
+const mapStateToProps = (state) => {
+  return { user: state.user };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
@@ -52,4 +56,4 @@ const mapDispatchToProps = (dispatch) => {
     dispatch
   );
 };
-export default connect(null, mapDispatchToProps)(PageWrapper);
+export default connect(mapStateToProps, mapDispatchToProps)(PageWrapper);
