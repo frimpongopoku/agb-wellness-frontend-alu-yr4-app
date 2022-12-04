@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { LOADING } from "../redux/reducers/reducers";
+import { makeStringDate } from "../shared/utils";
 import Checkbox from "./checkbox/Checkbox";
 
 function GoalCard({
@@ -15,6 +16,7 @@ function GoalCard({
   undo,
   select,
   isSelected,
+  createdAt,
 }) {
   const classes = onClick ? "underline touchable-opacity" : "";
   let list = [];
@@ -48,11 +50,20 @@ function GoalCard({
           {list.map((c, i) => (
             <small
               key={i.toString()}
-              style={{ color: "var(--app-light-text)", marginRight: 3 }}
+              style={{
+                color: "var(--app-light-text)",
+                marginRight: 3,
+                textTransform: "uppercase",
+              }}
             >
               {c.name}
             </small>
           ))}
+          <br />
+          <small>
+            {" "}
+            <b>By {makeStringDate(createdAt)}</b>
+          </small>
         </div>
         <small
           onClick={() => {

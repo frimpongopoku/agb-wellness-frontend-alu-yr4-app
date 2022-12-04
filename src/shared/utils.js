@@ -10,3 +10,9 @@ export const dateToInputFormat = (dateString) => {
   date = date.split("T");
   return (date || [])[0] || "";
 };
+
+export const makeStringDate = (date) => {
+  if (!date) return "...";
+
+  return new Date(date).toDateString();
+};

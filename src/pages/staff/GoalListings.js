@@ -21,7 +21,7 @@ function GoalListings({
   if (!goals || !goals.length)
     return (
       <div className="partition">
-        <h3>YOUR GOALS THIS WEEK </h3>
+        <h3>YOUR GOALS </h3>
         <p
           style={{
             fontWeight: "bold",
@@ -44,7 +44,7 @@ function GoalListings({
   return (
     <div className="partition">
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <h3>YOUR GOALS THIS WEEK </h3>
+        <h3>YOUR GOALS </h3>
 
         {selected.length && (
           <h3
@@ -62,7 +62,9 @@ function GoalListings({
             <GoalCard
               {...goal}
               edit={() => edit(goal._id)}
-              onClick={() => navigateTo(`/staff/view/goal/${index}`)}
+              onClick={() =>
+                navigateTo(`/staff/view/goal/${goal._id.toString()}`)
+              }
               categoriesList={categoriesList}
               markAsDone={markAsDone}
               isSelected={selected.includes(goal._id.toString())}

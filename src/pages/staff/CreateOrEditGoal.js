@@ -89,8 +89,9 @@ function CreateOrEditGoal({
       <TextField
         onChange={(text) => onChange("title", text)}
         label="Title"
-        placeholder="Title of goal..."
+        placeholder="Title of goal (40 chars)..."
         value={form.title}
+        generic={{ max: 40 }}
       />
       <TextField
         onChange={(text) => onChange("description", text)}

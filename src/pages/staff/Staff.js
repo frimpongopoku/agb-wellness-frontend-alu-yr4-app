@@ -65,7 +65,7 @@ function Staff({
     putGoalInRedux(rem);
     cb && cb();
     InternetExplorer.post({ url: API_DELETE_GOALS, body: { ids } }).then(
-      (response) => {
+      (_) => {
         cb && cb();
       }
     );
@@ -135,7 +135,7 @@ function Staff({
 
           <div className="content-partition">
             {view ? (
-              <ViewGoal id={params && params.id} />
+              <ViewGoal goals={goals} id={params && params.id} />
             ) : (
               <>
                 <GoalListings
