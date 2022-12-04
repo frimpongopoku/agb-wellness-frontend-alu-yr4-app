@@ -1,8 +1,25 @@
 import React from "react";
 import CategoryCard from "../../components/CategoryCard";
+import Loader from "../../components/loader/Loader";
 import StaffCard from "../../components/StaffCard";
+import { LOADING } from "../../redux/reducers/reducers";
 
-function CategoryListings({ edit, deleteStaff }) {
+function CategoryListings({ edit, deleteStaff, categories }) {
+  if (categories === LOADING) return <Loader />;
+
+  if (!categories || !categories.length)
+    return (
+      <p
+        style={{
+          fontWeight: "bold",
+          padding: "20px",
+          textAlign: "center",
+          maxWidth: "50%",
+        }}
+      >
+        There are no categories available yet. Add some..
+      </p>
+    );
   return (
     <div className="partition">
       <div style={{ display: "flex", flexDirection: "row" }}>
@@ -16,8 +33,10 @@ function CategoryListings({ edit, deleteStaff }) {
         </h3>
       </div>
       <div>
-        {[1, 2, 3, 4, 6, 7].map((itm, index) => (
-          <CategoryCard edit={() => edit(itm)} />
+        {(categories || []).map((cat, index) => (
+          <React.Fragment key={index.toString()}>
+            <CategoryCard {...cat} edit={() => edit(cat)} />
+          </React.Fragment>
         ))}
       </div>
     </div>

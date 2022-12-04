@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import Button from "../../components/button/Button";
 import TextField from "../../components/texfield/TextField";
 import { InternetExplorer } from "../../shared/api/InternetExplorer";
@@ -18,6 +19,8 @@ function AddStaff({
   const setError = (message) => {
     showNotification({ show: true, good: false, message });
   };
+
+  useEffect(() => {}, [staffs]);
   const sendToBackend = () => {
     showNotification({});
     const image = "https://i.pravatar.cc/200?u=" + Math.random().toString();
@@ -36,7 +39,7 @@ function AddStaff({
       setLoading(false);
       console.log("Here is the response", response);
       if (!response.success) return setError(response.error);
-      putStaffInRedux(response.data);
+      putStaffInRedux([response.data, ...staffs]);
       setName("");
       setEmail("");
     });
@@ -75,4 +78,8 @@ function AddStaff({
   );
 }
 
-export default AddStaff;
+const mapStateToProps = (state) => {
+  return { staffs: state.staffs };
+};
+
+export default connect(mapStateToProps)(AddStaff);

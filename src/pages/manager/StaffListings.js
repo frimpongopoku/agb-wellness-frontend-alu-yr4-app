@@ -32,7 +32,9 @@ function StaffListings({ deleteStaff, staffs }) {
       </div>
       <div>
         {(staffs || []).map((staff, index) => (
-          <StaffCard {...staff} />
+          <React.Fragment key={index.toString()}>
+            <StaffCard {...staff} />
+          </React.Fragment>
         ))}
       </div>
     </div>

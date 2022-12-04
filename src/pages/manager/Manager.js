@@ -39,8 +39,7 @@ function Manager({
       show: true,
       component: (
         <AddStaff
-          staffs={staffs}
-          putStaffInRedux={(stf) => putStaffInRedux([stf, ...staffs])}
+          putStaffInRedux={putStaffInRedux}
           showNotification={showNotification}
           toggleSidePane={toggleSidePane}
         />
@@ -53,8 +52,7 @@ function Manager({
       show: true,
       component: (
         <AddOrEditCategory
-          categories={categories}
-          putCategoryInRedux={(cat) => putCategoryInRedux([cat, ...categories])}
+          putCategoryInRedux={putCategoryInRedux}
           showNotification={showNotification}
           toggleSidePane={toggleSidePane}
           id={id}
@@ -73,6 +71,8 @@ function Manager({
     if (category) return createCategory();
     if (edit) return createCategory(params && params.id);
   }, []);
+
+  useEffect(() => {}, [categories, staffs]);
 
   const deleteStaff = () => {
     toggleSidePane({
