@@ -1,5 +1,5 @@
 import React from "react";
-import { getAnimation } from "../shared/utils";
+import { getAnimation, smartString } from "../shared/utils";
 import Checkbox from "./checkbox/Checkbox";
 
 function StaffCard({
@@ -16,7 +16,7 @@ function StaffCard({
       <img src={image} />
       <div style={{ margin: "0px 15px", color: "white" }}>
         <small style={{ fontSize: 15 }}>
-          <b>{`${firstName} ${lastName || ""}`}</b>
+          <b>{smartString(`${firstName} ${lastName || ""}`, 25)}</b>
         </small>
         <br />
         <small style={{ color: "var(--app-light-text)" }}>

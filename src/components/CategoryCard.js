@@ -1,5 +1,5 @@
 import React from "react";
-import { getAnimation } from "../shared/utils";
+import { getAnimation, smartString } from "../shared/utils";
 import Checkbox from "./checkbox/Checkbox";
 
 function CategoryCard({ _id, edit, name, isSelected, select }) {
@@ -11,7 +11,7 @@ function CategoryCard({ _id, edit, name, isSelected, select }) {
       </div>
       <div style={{ margin: "0px 15px", color: "white" }}>
         <small style={{ fontSize: 15 }}>
-          <b>{name || "..."}</b>
+          <b>{smartString(name, 25) || "..."}</b>
         </small>
         <small
           onClick={() => edit && edit()}

@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { LOADING } from "../redux/reducers/reducers";
-import { getAnimation, makeStringDate } from "../shared/utils";
+import { getAnimation, makeStringDate, smartString } from "../shared/utils";
 import Checkbox from "./checkbox/Checkbox";
 
 function GoalCard({
@@ -44,7 +44,7 @@ function GoalCard({
           onClick={() => onClick && onClick()}
         >
           <small style={{ fontSize: 15 }}>
-            <b>{title || ""}</b>
+            <b>{smartString(title, 25) || ""}</b>
           </small>
           <br />
           {list.map((c, i) => (
