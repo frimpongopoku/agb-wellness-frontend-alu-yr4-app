@@ -1,53 +1,122 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import Button from "../../components/button/Button";
-import Loader from "../../components/loader/Loader";
 import PageTitle from "../../components/PageTitle";
 import PageWrapper from "../../components/PageWrapper";
-import { reduxShowSidePane } from "../../redux/actions/actions";
+import {
+  reduxSetCategories,
+  reduxSetStaffs,
+  reduxShowSidePane,
+  reduxShowToast,
+} from "../../redux/actions/actions";
+import { LOADING } from "../../redux/reducers/reducers";
+import { InternetExplorer } from "../../shared/api/InternetExplorer";
+import { API_DELETE_CATEGORY, API_DELETE_STAFF } from "../../shared/api/urls";
 import Delete from "../auth/delete/Delete";
 import AddOrEditCategory from "./AddOrEditCategory";
 import AddStaff from "./AddStaff";
 import CategoryListings from "./CategoryListings";
 import StaffListings from "./StaffListings";
 
-function Manager({ toggleSidePane, staff, category, edit }) {
+function Manager({
+  toggleSidePane,
+  staff,
+  category,
+  editCategory,
+  showNotification,
+  putStaffInRedux,
+  staffs, // list of staff members
+  user,
+  categories,
+  putCategoryInRedux,
+}) {
+  const navigateTo = useNavigate();
   const params = useParams();
+  const id = params && params.id;
+
   const addStaff = () => {
     toggleSidePane({
       show: true,
-      component: <AddStaff toggleSidePane={toggleSidePane} />,
+      component: (
+        <AddStaff
+          putStaffInRedux={putStaffInRedux}
+          showNotification={showNotification}
+          toggleSidePane={toggleSidePane}
+        />
+      ),
     });
   };
-  const createCategory = (id = null) => {
-    toggleSidePane({
-      show: true,
-      component: <AddOrEditCategory toggleSidePane={toggleSidePane} id={id} />,
-    });
-  };
+
+  useEffect(() => {}, [categories, staffs]);
 
   useEffect(() => {
     if (staff) return addStaff();
     if (category) return createCategory();
-    if (edit) return createCategory(params && params.id);
-  }, []);
+    if (editCategory) return createCategory(id);
+  }, [staff, category, editCategory, id]);
 
-  const deleteStaff = () => {
+  // --------------------------------------------------------------
+  const userIsLoading = user === LOADING;
+  if (!userIsLoading && !user.isManager) navigateTo("/403");
+  // --------------------------------------------------------------
+
+  const createCategory = (id = null) => {
+    toggleSidePane({
+      show: true,
+      component: (
+        <AddOrEditCategory
+          showNotification={showNotification}
+          toggleSidePane={toggleSidePane}
+          id={id}
+        />
+      ),
+    });
+  };
+
+  const doStaffDeletion = ({ ids, cb }) => {
+    // delete locally
+    const rem = staffs.filter((st) => !ids.includes(st._id.toString()));
+    putStaffInRedux(rem);
+    InternetExplorer.post({ url: API_DELETE_STAFF, body: { ids } }).then(
+      (_) => {
+        cb && cb();
+      }
+    );
+  };
+  const doCategoryDeletion = ({ ids, cb }) => {
+    // delete locally
+    const rem = categories.filter((st) => !ids.includes(st._id.toString()));
+    putCategoryInRedux(rem);
+
+    InternetExplorer.post({ url: API_DELETE_CATEGORY, body: { ids } }).then(
+      (_) => {
+        cb && cb();
+      }
+    );
+  };
+
+  const deleteContent = ({ selected, staffs, cb }) => {
     toggleSidePane({
       show: true,
       component: (
         <Delete
-          count={3}
+          confirm={() => {
+            if (staffs) return doStaffDeletion({ ids: selected, cb });
+            doCategoryDeletion({ ids: selected, cb });
+          }}
+          count={selected.length}
           close={() => toggleSidePane({ show: false, component: null })}
         />
       ),
     });
   };
 
+  // ---------------------------------------------------------------------
+
   return (
-    <PageWrapper cornerContent={<h3>H3 tag</h3>}>
+    <PageWrapper>
       <>
         <PageTitle
           title="Manager"
@@ -67,30 +136,47 @@ function Manager({ toggleSidePane, staff, category, edit }) {
             >
               ADD CATEGORY{" "}
             </Button>
+            <Button
+              style={{ marginLeft: "auto", width: "auto" }}
+              onClick={() => navigateTo("/staff")}
+              accent
+            >
+              MY GOALS
+            </Button>
           </div>
 
           <div className="content-partition">
-            <StaffListings deleteStaff={deleteStaff} />
+            <StaffListings staffs={staffs} deleteStaff={deleteContent} />
             <CategoryListings
-              edit={(id) => createCategory(id)}
-              deleteStaff={deleteStaff}
+              categories={categories}
+              edit={(id) => {
+                navigateTo(`/manager/edit/category/${id}`);
+                createCategory(id);
+              }}
+              deleteCategories={deleteContent}
             />
           </div>
         </div>
-        <Loader loading>Page is loading...</Loader>
       </>
     </PageWrapper>
   );
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    user: state.user,
+    staffs: state.staffs,
+    categories: state.categories,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       toggleSidePane: reduxShowSidePane,
+      showNotification: reduxShowToast,
+      putStaffInRedux: reduxSetStaffs,
+      putCategoryInRedux: reduxSetCategories,
     },
     dispatch
   );

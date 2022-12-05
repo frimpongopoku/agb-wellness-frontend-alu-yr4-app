@@ -1,20 +1,35 @@
 import React from "react";
+import { getAnimation, smartString } from "../shared/utils";
 import Checkbox from "./checkbox/Checkbox";
 
-function CategoryCard({ edit }) {
+function CategoryCard({ _id, edit, name, isSelected, select }) {
+  const initials = (name || "").substring(0, 2);
   return (
-    <div className="categories-card">
-      <div className="cat-img">GH</div>
+    <div className={`categories-card ${getAnimation()}`}>
+      <div className="cat-img" style={{ textTransform: "uppercase" }}>
+        {initials}
+      </div>
       <div style={{ margin: "0px 15px", color: "white" }}>
+        <small style={{ fontSize: 15 }}>
+          <b>{smartString(name, 25) || "..."}</b>
+        </small>
         <small
           onClick={() => edit && edit()}
-          style={{ fontSize: 15 }}
           className="underline touchable-opacity"
+          style={{
+            marginLeft: 10,
+            fontWeight: "bold",
+            color: "var(--app-light-text)",
+          }}
         >
-          <b>Whan Gi Chooms</b>
+          Edit
         </small>
       </div>
-      <Checkbox style={{ marginBottom: 0, marginLeft: "auto" }} />
+      <Checkbox
+        checked={isSelected}
+        onChange={() => select(_id)}
+        style={{ marginBottom: 0, marginLeft: "auto" }}
+      />
     </div>
   );
 }

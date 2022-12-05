@@ -1,20 +1,33 @@
 import React from "react";
+import { getAnimation, smartString } from "../shared/utils";
 import Checkbox from "./checkbox/Checkbox";
 
-function StaffCard() {
+function StaffCard({
+  _id,
+  image,
+  firstName,
+  lastName,
+  email,
+  select,
+  isSelected,
+}) {
   return (
-    <div className="staff-card">
-      <img src="https://i.pravatar.cc/300" />
+    <div className={`staff-card ${getAnimation()}`}>
+      <img src={image} alt="staff media" />
       <div style={{ margin: "0px 15px", color: "white" }}>
         <small style={{ fontSize: 15 }}>
-          <b>Whan Gi Chooms</b>
+          <b>{smartString(`${firstName} ${lastName || ""}`, 25)}</b>
         </small>
         <br />
         <small style={{ color: "var(--app-light-text)" }}>
-          lospongos@gmail.com
+          {email || "..."}
         </small>
       </div>
-      <Checkbox style={{ marginBottom: 0, marginLeft: "auto" }} />
+      <Checkbox
+        checked={isSelected}
+        onChange={() => select(_id)}
+        style={{ marginBottom: 0, marginLeft: "auto" }}
+      />
     </div>
   );
 }

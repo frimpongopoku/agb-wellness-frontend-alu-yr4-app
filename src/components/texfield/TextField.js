@@ -6,6 +6,10 @@ function TextField({
   type,
   placeholder = "Enter content here...",
   className,
+  onChange,
+  generic,
+  textarea,
+  value,
 }) {
   return (
     <div style={{ marginBottom: 10 }}>
@@ -16,11 +20,28 @@ function TextField({
         </div>
       )}
       <div>
-        <input
-          type={type || "text"}
-          className={`textfield ${className}`}
-          placeholder={placeholder}
-        />
+        {textarea ? (
+          <textarea
+            onChange={(e) => onChange && onChange(e.target.value)}
+            type={type || "text"}
+            className={`textfield ${className}`}
+            placeholder={placeholder}
+            value={value || ""}
+            rows="7"
+            {...(generic || {})}
+          >
+            {value}
+          </textarea>
+        ) : (
+          <input
+            onChange={(e) => onChange && onChange(e.target.value)}
+            type={type || "text"}
+            className={`textfield ${className}`}
+            placeholder={placeholder}
+            value={value || ""}
+            {...(generic || {})}
+          />
+        )}
       </div>
     </div>
   );

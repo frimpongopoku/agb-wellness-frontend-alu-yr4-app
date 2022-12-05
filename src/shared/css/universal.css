@@ -32,6 +32,7 @@
   min-width: 290px;
   position: relative;
   height: 75px;
+  /* opacity: 0; */
 }
 .staff-card img {
   width: 55px;
@@ -241,6 +242,9 @@ p {
   width: 100%;
   min-height: 500px;
   margin-right: 10px;
+  max-height: 70vh;
+  overflow-y: scroll;
+  padding-bottom: 60px;
 }
 
 .partition h3 {
@@ -350,4 +354,57 @@ p {
 }
 .underline:hover {
   text-decoration: underline;
+}
+
+.top-bins {
+  width: 100%;
+  min-height: 50px;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 12;
+  display: flex;
+  padding: 10px 30px;
+  flex-direction: row;
+}
+
+.animate-card-fast {
+  opacity: 0;
+  animation: animate-card 0.3s forwards;
+}
+.animate-card-normal {
+  opacity: 0;
+  animation: animate-card 0.5s forwards 0.3s;
+}
+.animate-card-slow {
+  opacity: 0;
+  animation: animate-card 0.5s forwards 0.5s;
+}
+
+@keyframes animate-card {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.slide-in-from-left {
+  opacity: 0;
+  animation: from-left 0.4s forwards 0.8s;
+}
+
+@keyframes from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-300px) rotate(45deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px) rotate(45deg);
+  }
 }
