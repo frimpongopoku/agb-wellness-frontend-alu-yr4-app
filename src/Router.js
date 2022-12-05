@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import App from "./App";
 import Landing from "./App";

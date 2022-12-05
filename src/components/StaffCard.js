@@ -13,7 +13,7 @@ function StaffCard({
 }) {
   return (
     <div className={`staff-card ${getAnimation()}`}>
-      <img src={image} />
+      <img src={image} alt="staff media" />
       <div style={{ margin: "0px 15px", color: "white" }}>
         <small style={{ fontSize: 15 }}>
           <b>{smartString(`${firstName} ${lastName || ""}`, 25)}</b>

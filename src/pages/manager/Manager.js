@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import Button from "../../components/button/Button";
-import Loader from "../../components/loader/Loader";
 import PageTitle from "../../components/PageTitle";
 import PageWrapper from "../../components/PageWrapper";
 import {
@@ -56,7 +55,7 @@ function Manager({
     if (staff) return addStaff();
     if (category) return createCategory();
     if (editCategory) return createCategory(id);
-  }, []);
+  }, [staff, category, editCategory, id]);
 
   // --------------------------------------------------------------
   const userIsLoading = user === LOADING;

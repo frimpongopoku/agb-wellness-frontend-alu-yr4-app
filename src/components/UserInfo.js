@@ -7,7 +7,7 @@ function UserInfo({ user }) {
 
   return (
     <div className="user-info">
-      <img src={image || ""} />
+      <img src={image || ""} alt = "user media"/>
       <h3>{firstName || "..."}</h3>
       <p>{(roles || []).map((role) => `@${role.name} `)}</p>
     </div>

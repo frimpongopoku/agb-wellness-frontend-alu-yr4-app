@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { LOADING } from "../redux/reducers/reducers";
 import { getAnimation, makeStringDate, smartString } from "../shared/utils";
 import Checkbox from "./checkbox/Checkbox";
