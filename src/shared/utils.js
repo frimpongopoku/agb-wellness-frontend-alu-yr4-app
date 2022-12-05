@@ -16,3 +16,19 @@ export const makeStringDate = (date) => {
 
   return new Date(date).toDateString();
 };
+
+export const getRandomInt = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+export const getAnimation = () => {
+  const animes = [
+    "animate-card-fast",
+    "animate-card-slow",
+    "animate-card-normal",
+  ];
+  const index = getRandomInt(0, 2);
+  return animes[index];
+};

@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { LOADING } from "../redux/reducers/reducers";
-import { makeStringDate } from "../shared/utils";
+import { getAnimation, makeStringDate } from "../shared/utils";
 import Checkbox from "./checkbox/Checkbox";
 
 function GoalCard({
@@ -26,7 +26,7 @@ function GoalCard({
     );
   return (
     <div
-      className={done ? "done" : ""}
+      className={`${done ? "done" : ""} ${getAnimation()}`}
       style={{ display: "flex", flexDirection: "row", marginBottom: 10 }}
     >
       <div className="staff-card" style={{ margin: 0, width: "100%" }}>

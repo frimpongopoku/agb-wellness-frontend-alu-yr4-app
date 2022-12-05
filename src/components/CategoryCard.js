@@ -1,10 +1,11 @@
 import React from "react";
+import { getAnimation } from "../shared/utils";
 import Checkbox from "./checkbox/Checkbox";
 
 function CategoryCard({ _id, edit, name, isSelected, select }) {
   const initials = (name || "").substring(0, 2);
   return (
-    <div className="categories-card">
+    <div className={`categories-card ${getAnimation()}`}>
       <div className="cat-img" style={{ textTransform: "uppercase" }}>
         {initials}
       </div>

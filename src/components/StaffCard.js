@@ -1,4 +1,5 @@
 import React from "react";
+import { getAnimation } from "../shared/utils";
 import Checkbox from "./checkbox/Checkbox";
 
 function StaffCard({
@@ -11,7 +12,7 @@ function StaffCard({
   isSelected,
 }) {
   return (
-    <div className="staff-card">
+    <div className={`staff-card ${getAnimation()}`}>
       <img src={image} />
       <div style={{ margin: "0px 15px", color: "white" }}>
         <small style={{ fontSize: 15 }}>
