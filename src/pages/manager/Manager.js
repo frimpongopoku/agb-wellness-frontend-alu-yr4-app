@@ -52,6 +52,17 @@ function Manager({
 
   useEffect(() => {}, [categories, staffs]);
 
+  useEffect(() => {
+    if (staff) return addStaff();
+    if (category) return createCategory();
+    if (editCategory) return createCategory(id);
+  }, []);
+
+  // --------------------------------------------------------------
+  const userIsLoading = user === LOADING;
+  if (!userIsLoading && !user.isManager) navigateTo("/403");
+  // --------------------------------------------------------------
+
   const createCategory = (id = null) => {
     toggleSidePane({
       show: true,
@@ -64,17 +75,6 @@ function Manager({
       ),
     });
   };
-
-  useEffect(() => {
-    if (user === LOADING) return;
-    if (!user?.isManager) return navigateTo("/staff"); // If user tries to enter into the manager page and they are not a manager, return theme to the staff portal
-  }, [user]);
-
-  useEffect(() => {
-    if (staff) return addStaff();
-    if (category) return createCategory();
-    if (editCategory) return createCategory(id);
-  }, []);
 
   const doStaffDeletion = ({ ids, cb }) => {
     // delete locally
@@ -113,6 +113,8 @@ function Manager({
       ),
     });
   };
+
+  // ---------------------------------------------------------------------
 
   return (
     <PageWrapper>

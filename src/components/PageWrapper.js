@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { signOut } from "../redux/actions/actions";
+import { LOADING } from "../redux/reducers/reducers";
 import Button from "./button/Button";
 import CornerTriangle from "./CornerTriangle";
 import PageSkeleton from "./PageSkeleton";
@@ -13,6 +14,9 @@ function PageWrapper({ children, signOut, user }) {
   const signUserOut = () => {
     signOut(() => navigateTo("/login"));
   };
+  const userIsLoading = user === LOADING;
+  if (!userIsLoading && !user) navigateTo("/401");
+
   return (
     <PageSkeleton>
       <>

@@ -7,6 +7,9 @@ import App from "./App";
 import Landing from "./App";
 import Sidepane from "./components/sidepane/Sidepane";
 import Toast from "./components/toast/Toast";
+import Forbidden from "./pages/errors/Forbidden";
+import NotAuthorized from "./pages/errors/NotAuthorized";
+import NotFound from "./pages/errors/NotFound";
 import Manager from "./pages/manager/Manager";
 import Staff from "./pages/staff/Staff";
 import {
@@ -67,6 +70,9 @@ function Router({
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Landing />} />
+
+          <Route exact path="/403" element={<Forbidden />} />
+          <Route exact path="/401" element={<NotAuthorized />} />
           <Route exact path="/login" element={<App login />} />
           <Route exact path="/register" element={<App register />} />
           <Route exact path="/staff" element={<Staff />} />
@@ -86,6 +92,7 @@ function Router({
             path="/manager/edit/category/:id"
             element={<Manager editCategory />}
           />
+          <Route exact path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>
