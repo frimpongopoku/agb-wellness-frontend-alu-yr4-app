@@ -45,8 +45,8 @@ function Staff({
       show: true,
       component: (
         <CreateOrEditGoal
-          updateInBackend={updateInBackend}
-          putGoalInRedux={putGoalInRedux}
+          // updateInBackend={updateInBackend}
+          // putGoalInRedux={putGoalInRedux}
           showNotification={showNotification}
           toggleSidePane={toggleSidePane}
           id={id}
@@ -86,7 +86,6 @@ function Staff({
   const updateInBackend = ({ data, id, cb }) => {
     InternetExplorer.post({ url: API_UPDATE_GOAL, body: { data, id } }).then(
       (response) => {
-        console.log("lets see response innit", response);
         if (!response.success)
           return console.log("ERROR - GOAL - UPDATE: ", response.error);
 

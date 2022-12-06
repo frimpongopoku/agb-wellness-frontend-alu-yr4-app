@@ -5,7 +5,7 @@ export class InternetExplorer {
     credentials = credentials || "include";
 
     try {
-      return fetch(url, { method, headers, body, credentials }).then(
+      return fetch(url, { method, headers, body, credentials, withCredentials:true }).then(
         (response) => response.json()
       );
     } catch (e) {

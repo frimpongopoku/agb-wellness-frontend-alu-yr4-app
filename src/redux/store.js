@@ -6,7 +6,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 const store = createStore(
   reducers,
 
-  compose(applyMiddleware(reduxThunk, logger))
+  compose(applyMiddleware(reduxThunk))
 );
 
 export default store;

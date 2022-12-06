@@ -47,6 +47,7 @@ function App({ toggleSidePane, login, register, user }) {
   }, [user]);
 
   const loadingUser = user === LOADING;
+
   return (
     <PageSkeleton>
       <>
@@ -61,25 +62,44 @@ function App({ toggleSidePane, login, register, user }) {
             <div
               style={{ display: "flex", flexDirection: "row", marginTop: 20 }}
             >
-              <Button
-                onClick={() => {
-                  showLoginPage();
-                  navigateTo("/login");
-                }}
-                accent
-                style={{ marginRight: 20 }}
-              >
-                LOGIN
-              </Button>
-              <Button
-                onClick={() => {
-                  showRegistrationPage();
-                  navigateTo("/register");
-                }}
-                accent
-              >
-                REGISTER
-              </Button>
+              {!user ? (
+                <>
+                  {" "}
+                  <Button
+                    onClick={() => {
+                      showLoginPage();
+                      navigateTo("/login");
+                    }}
+                    accent
+                    style={{ marginRight: 20 }}
+                  >
+                    LOGIN
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      showRegistrationPage();
+                      navigateTo("/register");
+                    }}
+                    accent
+                  >
+                    REGISTER
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  onClick={() => {
+                    if (user.isManager) return navigateTo("/manager");
+                    navigateTo("/staff");
+                  }}
+                  accent
+                >
+                  GO TO DASHBOARD{" "}
+                  <i
+                    style={{ marginLeft: 6 }}
+                    className=" fa fa-long-arrow-right"
+                  />
+                </Button>
+              )}
             </div>
           )}
         </div>

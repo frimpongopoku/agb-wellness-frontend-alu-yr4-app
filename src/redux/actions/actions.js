@@ -36,7 +36,6 @@ export const reduxSetCategories = (payload) => {
 
 export const signOut = (cb) => (dispatch) => {
   InternetExplorer.post({ url: API_LOG_OUT }).then((response) => {
-    console.log("I logged out nicely", response);
     if (!response.success) return console.log("ERROR - LOGOUT", response.error);
     dispatch(reduxSetAuthUser(null));
     cb && cb();

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import Button from "../../components/button/Button";
 import Dropdown from "../../components/dropdown/Dropdown";
 import TextField from "../../components/texfield/TextField";
+import { reduxSetGoals } from "../../redux/actions/actions";
 import { LOADING } from "../../redux/reducers/reducers";
 import { InternetExplorer } from "../../shared/api/InternetExplorer";
-import { API_CREATE_GOAL } from "../../shared/api/urls";
+import { API_CREATE_GOAL, API_UPDATE_GOAL } from "../../shared/api/urls";
 import { dateToInputFormat } from "../../shared/utils";
 
 function CreateOrEditGoal({
@@ -15,7 +17,6 @@ function CreateOrEditGoal({
   goals,
   putGoalInRedux,
   categories,
-  updateInBackend,
 }) {
   categories = categories === LOADING ? [] : categories;
   goals = goals === LOADING ? [] : goals;
@@ -31,6 +32,18 @@ function CreateOrEditGoal({
     showNotification({ show: true, good: false, message });
   };
 
+  const updateInBackend = ({ data, id, cb }) => {
+    InternetExplorer.post({ url: API_UPDATE_GOAL, body: { data, id } }).then(
+      (response) => {
+        if (!response.success)
+          return console.log("ERROR - GOAL - UPDATE: ", response.error);
+
+        const rem = goals.filter((g) => g._id.toString() !== id.toString());
+        putGoalInRedux([response.data, ...rem]);
+        cb && cb();
+      }
+    );
+  };
   const sendToBackend = () => {
     const { title, dueBy, description, category } = form;
     showNotification({});
@@ -44,7 +57,10 @@ function CreateOrEditGoal({
         "Select the date that you would like to complete this..."
       );
 
-    const foundCategory = categories.find((c) => c.name === category);
+    const foundCategory = categories.find(
+      (c) => c.name.trim() === category.trim()
+    );
+
     form.categories = [foundCategory._id];
     setLoading(true);
 
@@ -134,7 +150,16 @@ function CreateOrEditGoal({
   );
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      putGoalInRedux: reduxSetGoals,
+    },
+    dispatch
+  );
+};
+
 const mapStateToProps = (state) => {
   return { goals: state.goals, categories: state.categories };
 };
-export default connect(mapStateToProps)(CreateOrEditGoal);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateOrEditGoal);
